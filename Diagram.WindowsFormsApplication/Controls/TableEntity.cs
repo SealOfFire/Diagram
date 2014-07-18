@@ -17,15 +17,18 @@ namespace Diagram.WindowsFormsApplication.Controls
         private ContextMenu contextMenu;
         private MenuItem menuItemDeleteTableEntity;
 
+        private Canvas parent;
+
         public DataFormat.TableEntity GetTable()
         {
             return this.table;
         }
 
-        public TableEntity()
+        public TableEntity(Canvas parent)
         {
             this.InitializeComponent();
             this.InitializeContextMenu();
+            this.parent = parent;
         }
 
         private void InitializeContextMenu()

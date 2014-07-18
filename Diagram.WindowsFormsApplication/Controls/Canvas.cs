@@ -45,6 +45,16 @@ namespace Diagram.WindowsFormsApplication.Controls
             return this.tables.CreateTableSQLText();
         }
 
+        public void AddTable(DataFormat.TableEntity table)
+        {
+
+        }
+
+        public void removeTable(DataFormat.TableEntity table)
+        {
+
+        }
+
         #endregion
 
         #region 事件
@@ -61,7 +71,7 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         private void menuItemAddTableEntity_Click(object sender, EventArgs e)
         {
-            TableEntity control = new TableEntity();
+            TableEntity control = new TableEntity(this);
             this.Controls.Add(control);
             this.tables.Add(control.GetTable());
         }
