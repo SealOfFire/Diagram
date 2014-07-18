@@ -13,6 +13,7 @@ namespace DataFormat
         private string dataType = "char";
         private int size = 10;
         private int d = -1;
+        private int sort = 0;
 
 
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
@@ -25,7 +26,7 @@ namespace DataFormat
 
         public override string ToString()
         {
-            return base.ToString();
+            return ColumnEntity.CreateColumnSQLText(this);
         }
 
         public static ColumnEntity Load(XmlNode node)
@@ -101,5 +102,6 @@ namespace DataFormat
             sb.Append(")");
             return sb.ToString();
         }
+
     }
 }

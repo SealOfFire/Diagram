@@ -32,8 +32,19 @@
             this.txtPhysicsName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtConceptName = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.gvColumnList = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.pk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.fk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.数据类型 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.注视 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtAnnotation = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.gvColumnList)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPhysicsName
@@ -68,28 +79,131 @@
             this.txtConceptName.Size = new System.Drawing.Size(172, 21);
             this.txtConceptName.TabIndex = 3;
             // 
-            // dataGridView1
+            // gvColumnList
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 46);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(500, 150);
-            this.dataGridView1.TabIndex = 4;
+            this.gvColumnList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gvColumnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvColumnList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.pk,
+            this.fk,
+            this.ColumnName,
+            this.数据类型,
+            this.length,
+            this.注视});
+            this.gvColumnList.Location = new System.Drawing.Point(12, 129);
+            this.gvColumnList.Name = "gvColumnList";
+            this.gvColumnList.RowHeadersVisible = false;
+            this.gvColumnList.RowTemplate.Height = 23;
+            this.gvColumnList.Size = new System.Drawing.Size(631, 261);
+            this.gvColumnList.TabIndex = 4;
+            // 
+            // Column1
+            // 
+            this.Column1.Frozen = true;
+            this.Column1.HeaderText = "删除";
+            this.Column1.Name = "Column1";
+            this.Column1.Text = "删除";
+            this.Column1.Width = 45;
+            // 
+            // pk
+            // 
+            this.pk.HeaderText = "PK";
+            this.pk.Name = "pk";
+            this.pk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.pk.Width = 25;
+            // 
+            // fk
+            // 
+            this.fk.HeaderText = "FK";
+            this.fk.Name = "fk";
+            this.fk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fk.Width = 25;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "PhysicsName";
+            this.ColumnName.HeaderText = "列名";
+            this.ColumnName.Name = "ColumnName";
+            // 
+            // 数据类型
+            // 
+            this.数据类型.DataPropertyName = "DataType";
+            this.数据类型.HeaderText = "数据类型";
+            this.数据类型.Name = "数据类型";
+            this.数据类型.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.数据类型.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // length
+            // 
+            this.length.HeaderText = "长度";
+            this.length.Name = "length";
+            // 
+            // 注视
+            // 
+            this.注视.DataPropertyName = "Annotation";
+            this.注视.HeaderText = "注释";
+            this.注视.Name = "注视";
+            this.注视.Width = 200;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "注视";
+            // 
+            // txtAnnotation
+            // 
+            this.txtAnnotation.Location = new System.Drawing.Point(85, 43);
+            this.txtAnnotation.Multiline = true;
+            this.txtAnnotation.Name = "txtAnnotation";
+            this.txtAnnotation.Size = new System.Drawing.Size(443, 69);
+            this.txtAnnotation.TabIndex = 6;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(487, 396);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "保存";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(568, 396);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "取消";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // TableEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 262);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(655, 431);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.txtAnnotation);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.gvColumnList);
             this.Controls.Add(this.txtConceptName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPhysicsName);
             this.Controls.Add(this.lblPhysicsName);
             this.Name = "TableEdit";
             this.Text = "TableEdit";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvColumnList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,6 +215,17 @@
         private System.Windows.Forms.TextBox txtPhysicsName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtConceptName;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gvColumnList;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtAnnotation;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DataGridViewButtonColumn Column1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn pk;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn fk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn 数据类型;
+        private System.Windows.Forms.DataGridViewTextBoxColumn length;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 注视;
     }
 }

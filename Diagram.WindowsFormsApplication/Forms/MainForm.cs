@@ -11,32 +11,29 @@ namespace Diagram.WindowsFormsApplication.Forms
             InitializeComponent();
         }
 
-        private void canvas1_DragDrop(object sender, DragEventArgs e)
+        #region 菜单事件
+
+        private void menuExportSQLText_Click(object sender, EventArgs e)
+        {
+            string script = this.canvas1.Export();
+            MessageBox.Show(script);
+        }
+
+        private void menuOpen_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void menuSave_Click(object sender, EventArgs e)
         {
-            DataFormat.TableEntity table1 = new DataFormat.TableEntity();
-            table1.AddColumnEntity(new DataFormat.ColumnEntity());
-            table1.AddColumnEntity(new DataFormat.ColumnEntity());
-            table1.AddColumnEntity(new DataFormat.ColumnEntity());
 
-            DataFormat.TableEntity table2 = new DataFormat.TableEntity();
-            table2.AddColumnEntity(new DataFormat.ColumnEntity());
-            table2.AddColumnEntity(new DataFormat.ColumnEntity());
-            table2.AddColumnEntity(new DataFormat.ColumnEntity());
-
-            TableCollection tables = new TableCollection();
-            tables.Add(table1);
-            tables.Add(table2);
-            tables.Save(@"D:\table.txt");
-
-            tables = TableCollection.Load(@"D:\table.txt");
-            int a = 0;
-            a++;
-            //DataFormat.TableEntity.CreateTableSQLText(table);
         }
+
+        private void menuExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
     }
 }
