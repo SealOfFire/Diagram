@@ -13,6 +13,7 @@ namespace DataFormat
         private string annotation = string.Empty;
         private List<ColumnEntity> columns = new List<ColumnEntity>();
 
+
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
