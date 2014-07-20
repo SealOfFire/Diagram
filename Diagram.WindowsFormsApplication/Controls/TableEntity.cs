@@ -91,7 +91,7 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         private void menuItemDeleteTableEntity_Click(object sender, EventArgs e)
         {
-            this.parent.removeTable(this);
+
         }
 
     }

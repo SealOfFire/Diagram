@@ -19,11 +19,6 @@ namespace DataFormat
             this.tables.Add(item);
         }
 
-        public void Remove(TableEntity item)
-        {
-            this.tables.Remove(item);
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.tables.GetEnumerator();

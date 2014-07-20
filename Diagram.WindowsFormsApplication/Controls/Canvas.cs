@@ -6,15 +6,9 @@ namespace Diagram.WindowsFormsApplication.Controls
 {
     public partial class Canvas : Panel
     {
-        #region
-
         private TableCollection tables = new TableCollection();
         private ContextMenu contextMenu;
         private MenuItem menuItemAddTableEntity;
-
-        #endregion
-
-        #region 构造函数
 
         public Canvas()
         {
@@ -22,13 +16,8 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.InitializeContextMenu();
         }
 
-        #endregion
-
         #region 方法
 
-        /// <summary>
-        /// 初始化上下文菜单
-        /// </summary>
         private void InitializeContextMenu()
         {
             //
@@ -56,18 +45,14 @@ namespace Diagram.WindowsFormsApplication.Controls
             return this.tables.CreateTableSQLText();
         }
 
-        public TableEntity AddTable()
+        public void AddTable(DataFormat.TableEntity table)
         {
-            TableEntity control = new TableEntity(this);
-            this.Controls.Add(control);
-            this.tables.Add(control.GetTable());
-            return control;
+
         }
 
-        public void removeTable(TableEntity table)
+        public void removeTable(DataFormat.TableEntity table)
         {
-            this.Controls.Remove(table);
-            this.tables.Remove(table.GetTable());
+
         }
 
         #endregion
@@ -86,7 +71,9 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         private void menuItemAddTableEntity_Click(object sender, EventArgs e)
         {
-            this.AddTable();
+            TableEntity control = new TableEntity(this);
+            this.Controls.Add(control);
+            this.tables.Add(control.GetTable());
         }
 
         #endregion
