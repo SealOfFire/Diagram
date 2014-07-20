@@ -7,6 +7,7 @@ namespace DataFormat
 {
     public class TableEntity
     {
+        #region
         private Guid identity = Guid.NewGuid();
         private string physicsName = "table_name";
         private string conceptName = "table_name";
@@ -18,15 +19,37 @@ namespace DataFormat
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
         public List<ColumnEntity> Columns { get { return this.columns; } set { this.columns = value; } }
+        #endregion
+
+        #region
 
         public void AddColumnEntity(ColumnEntity item)
         {
             this.columns.Add(item);
         }
 
+        public ColumnEntity AddColumnEntity()
+        {
+            ColumnEntity item = new ColumnEntity();
+            this.columns.Add(item);
+            return item;
+        }
+
         public void InsertColumnEntity(int index, ColumnEntity item)
         {
             this.columns.Insert(index, item);
+        }
+
+        public ColumnEntity InsertColumnEntity(int index)
+        {
+            ColumnEntity item = new ColumnEntity();
+            this.columns.Insert(index, item);
+            return item;
+        }
+
+        public void RemoveColumnEntity(ColumnEntity item)
+        {
+            this.columns.Remove(item);
         }
 
         #region xml
@@ -80,6 +103,8 @@ namespace DataFormat
 
         #endregion
 
+        #region sql
+
         public string CreateTableSQLText()
         {
             return TableEntity.CreateTableSQLText(this);
@@ -107,5 +132,10 @@ namespace DataFormat
             sb.Append(")");
             return sb.ToString();
         }
+
+        #endregion
+
+        #endregion
+
     }
 }

@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagram.WindowsFormsApplication", "Diagram.WindowsFormsApplication\Diagram.WindowsFormsApplication.csproj", "{C1C38671-FE70-43D0-9078-AF4A3ADC9CD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagram.WpfApplication", "Diagram.WpfApplication\Diagram.WpfApplication.csproj", "{79B6459D-D575-4516-B7EA-14DE96C9A186}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagram.DataFormat", "Diagram.DataFormat\Diagram.DataFormat.csproj", "{2F9F0121-921F-4781-A577-F672E976C3ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diagram.Windows.Forms", "Diagram.Windows.Forms\Diagram.Windows.Forms.csproj", "{FE047F9C-E2C3-49B0-8D76-CC1EF40E7DA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{2F9F0121-921F-4781-A577-F672E976C3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F9F0121-921F-4781-A577-F672E976C3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F9F0121-921F-4781-A577-F672E976C3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE047F9C-E2C3-49B0-8D76-CC1EF40E7DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE047F9C-E2C3-49B0-8D76-CC1EF40E7DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE047F9C-E2C3-49B0-8D76-CC1EF40E7DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE047F9C-E2C3-49B0-8D76-CC1EF40E7DA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
