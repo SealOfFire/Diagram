@@ -30,7 +30,7 @@ namespace DataFormat
 
         public ColumnEntity AddColumnEntity()
         {
-            ColumnEntity item = new ColumnEntity();
+            ColumnEntity item = new ColumnEntity(this);
             this.columns.Add(item);
             return item;
         }
@@ -42,7 +42,7 @@ namespace DataFormat
 
         public ColumnEntity InsertColumnEntity(int index)
         {
-            ColumnEntity item = new ColumnEntity();
+            ColumnEntity item = new ColumnEntity(this);
             this.columns.Insert(index, item);
             return item;
         }
@@ -64,7 +64,7 @@ namespace DataFormat
             XmlNodeList xmlColumnList = node.SelectNodes("Column");
             foreach (XmlNode xmlColumn in xmlColumnList)
             {
-                table.columns.Add(ColumnEntity.Load(xmlColumn));
+                table.columns.Add(ColumnEntity.Load(table, xmlColumn));
                 //tables.Add(TableEntity.Load(node));
             }
             return table;
@@ -117,7 +117,7 @@ namespace DataFormat
         public static string CreateTableSQLText(TableEntity table)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("CREATE TABLE");
+            sb.Append("CREATE TABLE ");
             sb.Append(table.physicsName); // 表名
             sb.AppendLine("(");
             // 列
@@ -136,6 +136,5 @@ namespace DataFormat
         #endregion
 
         #endregion
-
     }
 }

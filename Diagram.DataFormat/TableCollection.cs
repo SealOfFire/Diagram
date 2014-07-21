@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -10,9 +11,24 @@ namespace DataFormat
 {
     public class TableCollection : IEnumerable
     {
+        #region
+
         private List<TableEntity> tables = new List<TableEntity>();
 
         public TableEntity this[int index] { get { return this.tables[index]; } }
+
+        public TableEntity this[Guid identity]
+        {
+            get
+            {
+                foreach (TableEntity table in this.tables) if (table.Identity == identity) return table;
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region 方法
 
         public void Add(TableEntity item)
         {
@@ -24,10 +40,17 @@ namespace DataFormat
             this.tables.Remove(item);
         }
 
+        public void Clear()
+        {
+            this.tables.Clear();
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.tables.GetEnumerator();
         }
+
+        #region sql
 
         public string CreateTableSQLText()
         {
@@ -47,29 +70,35 @@ namespace DataFormat
             return sb.ToString();
         }
 
-        public void Save(string path)
+        #endregion
+
+        #region xml
+
+        public XmlElement Save(XmlDocument document)
         {
-            TableCollection.Save(this, path);
+            return TableCollection.Save(this, document);
         }
 
-        public static void Save(TableCollection tables, string path)
+        public static XmlElement Save(TableCollection tables, XmlDocument document)
         {
-            FileStream fileStream = new FileStream(path, FileMode.Create);
-            XmlDocument doc = new XmlDocument();
-            XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(dec);
-            // 根元素
-            XmlElement ele = doc.CreateElement("Tables");
-            doc.AppendChild(ele);
+            XmlElement ele = document.CreateElement("Tables");
             foreach (TableEntity table in tables)
             {
-                ele.AppendChild(table.CreateXmlElement(doc));
+                ele.AppendChild(table.CreateXmlElement(document));
             }
-            doc.Save(fileStream);
-            // 保存
-            fileStream.Flush();
-            fileStream.Close();
-            fileStream.Dispose();
+            return ele;
+        }
+
+        public static TableCollection Load(XmlNode tablesNode)
+        {
+            TableCollection tables = new TableCollection();
+
+            XmlNode xmlTables = tablesNode.SelectSingleNode("Tables");
+            foreach (XmlNode node in xmlTables)
+            {
+                tables.Add(TableEntity.Load(node));
+            }
+            return tables;
         }
 
         public static TableCollection Load(string path)
@@ -87,5 +116,9 @@ namespace DataFormat
             }
             return tables;
         }
+
+        #endregion
+
+        #endregion
     }
 }

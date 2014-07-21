@@ -12,8 +12,9 @@ namespace Diagram.WindowsFormsApplication.Forms
         public TableEdit(DataFormat.TableEntity table)
         {
             InitializeComponent();
-
+            this.gvColumnList.AutoGenerateColumns = false;
             this.table = table;
+            this.table.AddColumnEntity();
             this.SetForm();
         }
 
@@ -43,6 +44,18 @@ namespace Diagram.WindowsFormsApplication.Forms
         private void btnCancel_Click(object sender, System.EventArgs e)
         {
             this.Close();
+        }
+
+        private void menuAddColumn_Click(object sender, System.EventArgs e)
+        {
+            this.table.AddColumnEntity();
+            this.gvColumnList.DataSource = null;
+            this.gvColumnList.DataSource = this.table.Columns;
+        }
+
+        private void menuDelColumn_Click(object sender, System.EventArgs e)
+        {
+
         }
 
         #endregion

@@ -37,8 +37,12 @@ namespace Diagram.WindowsFormsApplication.Controls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlColumns = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTableName = new System.Windows.Forms.Label();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuDeleteTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlColumns
@@ -51,7 +55,7 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.pnlColumns.Location = new System.Drawing.Point(3, 31);
             this.pnlColumns.Margin = new System.Windows.Forms.Padding(0);
             this.pnlColumns.Name = "pnlColumns";
-            this.pnlColumns.Size = new System.Drawing.Size(124, 20);
+            this.pnlColumns.Size = new System.Drawing.Size(124, 85);
             this.pnlColumns.TabIndex = 0;
             // 
             // lblTableName
@@ -73,14 +77,30 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.lblTableName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lblTableName_MouseMove);
             this.lblTableName.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lblTableName_MouseUp);
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuDeleteTable});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 48);
+            // 
+            // menuDeleteTable
+            // 
+            this.menuDeleteTable.Name = "menuDeleteTable";
+            this.menuDeleteTable.Size = new System.Drawing.Size(152, 22);
+            this.menuDeleteTable.Text = "Delete Table";
+            this.menuDeleteTable.Click += new System.EventHandler(this.menuDeleteTable_Click);
+            // 
             // TableEntity
             // 
             this.AutoSize = true;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.lblTableName);
             this.Controls.Add(this.pnlColumns);
             this.Name = "TableEntity";
-            this.Size = new System.Drawing.Size(131, 57);
+            this.Size = new System.Drawing.Size(131, 122);
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,5 +110,7 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         private System.Windows.Forms.FlowLayoutPanel pnlColumns;
         private System.Windows.Forms.Label lblTableName;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem menuDeleteTable;
     }
 }

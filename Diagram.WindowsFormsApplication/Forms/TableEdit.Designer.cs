@@ -28,23 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblPhysicsName = new System.Windows.Forms.Label();
             this.txtPhysicsName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtConceptName = new System.Windows.Forms.TextBox();
             this.gvColumnList = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtAnnotation = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuAddColumn = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDelColumn = new System.Windows.Forms.ToolStripMenuItem();
             this.pk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.fk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.数据类型 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.length = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.注视 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtAnnotation = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvColumnList)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblPhysicsName
@@ -86,67 +90,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gvColumnList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvColumnList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
             this.pk,
             this.fk,
             this.ColumnName,
             this.数据类型,
             this.length,
             this.注视});
+            this.gvColumnList.ContextMenuStrip = this.contextMenuStrip1;
             this.gvColumnList.Location = new System.Drawing.Point(12, 129);
+            this.gvColumnList.MultiSelect = false;
             this.gvColumnList.Name = "gvColumnList";
             this.gvColumnList.RowHeadersVisible = false;
             this.gvColumnList.RowTemplate.Height = 23;
             this.gvColumnList.Size = new System.Drawing.Size(631, 261);
             this.gvColumnList.TabIndex = 4;
-            // 
-            // Column1
-            // 
-            this.Column1.Frozen = true;
-            this.Column1.HeaderText = "删除";
-            this.Column1.Name = "Column1";
-            this.Column1.Text = "删除";
-            this.Column1.Width = 45;
-            // 
-            // pk
-            // 
-            this.pk.HeaderText = "PK";
-            this.pk.Name = "pk";
-            this.pk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.pk.Width = 25;
-            // 
-            // fk
-            // 
-            this.fk.HeaderText = "FK";
-            this.fk.Name = "fk";
-            this.fk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.fk.Width = 25;
-            // 
-            // ColumnName
-            // 
-            this.ColumnName.DataPropertyName = "PhysicsName";
-            this.ColumnName.HeaderText = "列名";
-            this.ColumnName.Name = "ColumnName";
-            // 
-            // 数据类型
-            // 
-            this.数据类型.DataPropertyName = "DataType";
-            this.数据类型.HeaderText = "数据类型";
-            this.数据类型.Name = "数据类型";
-            this.数据类型.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.数据类型.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // length
-            // 
-            this.length.HeaderText = "长度";
-            this.length.Name = "length";
-            // 
-            // 注视
-            // 
-            this.注视.DataPropertyName = "Annotation";
-            this.注视.HeaderText = "注释";
-            this.注视.Name = "注视";
-            this.注视.Width = 200;
             // 
             // label2
             // 
@@ -187,6 +144,73 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAddColumn,
+            this.menuDelColumn});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 48);
+            // 
+            // menuAddColumn
+            // 
+            this.menuAddColumn.Name = "menuAddColumn";
+            this.menuAddColumn.Size = new System.Drawing.Size(161, 22);
+            this.menuAddColumn.Text = "Add Column";
+            this.menuAddColumn.Click += new System.EventHandler(this.menuAddColumn_Click);
+            // 
+            // menuDelColumn
+            // 
+            this.menuDelColumn.Name = "menuDelColumn";
+            this.menuDelColumn.Size = new System.Drawing.Size(161, 22);
+            this.menuDelColumn.Text = "Delete Column";
+            this.menuDelColumn.Click += new System.EventHandler(this.menuDelColumn_Click);
+            // 
+            // pk
+            // 
+            this.pk.HeaderText = "PK";
+            this.pk.Name = "pk";
+            this.pk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.pk.Width = 25;
+            // 
+            // fk
+            // 
+            this.fk.HeaderText = "FK";
+            this.fk.Name = "fk";
+            this.fk.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fk.Width = 25;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "PhysicsName";
+            this.ColumnName.HeaderText = "列名";
+            this.ColumnName.Name = "ColumnName";
+            // 
+            // 数据类型
+            // 
+            this.数据类型.DataPropertyName = "DataType";
+            this.数据类型.HeaderText = "数据类型";
+            this.数据类型.Items.AddRange(new object[] {
+            "int",
+            "char",
+            "dateTime"});
+            this.数据类型.Name = "数据类型";
+            this.数据类型.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.数据类型.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // length
+            // 
+            this.length.DataPropertyName = "Length";
+            this.length.HeaderText = "长度";
+            this.length.Name = "length";
+            // 
+            // 注视
+            // 
+            this.注视.DataPropertyName = "Annotation";
+            this.注视.HeaderText = "注释";
+            this.注视.Name = "注视";
+            this.注视.Width = 200;
+            // 
             // TableEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -204,6 +228,7 @@
             this.Name = "TableEdit";
             this.Text = "TableEdit";
             ((System.ComponentModel.ISupportInitialize)(this.gvColumnList)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +245,9 @@
         private System.Windows.Forms.TextBox txtAnnotation;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.DataGridViewButtonColumn Column1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuAddColumn;
+        private System.Windows.Forms.ToolStripMenuItem menuDelColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn pk;
         private System.Windows.Forms.DataGridViewCheckBoxColumn fk;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;

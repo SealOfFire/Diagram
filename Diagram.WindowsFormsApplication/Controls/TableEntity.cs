@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Diagram.WindowsFormsApplication.Controls
 {
@@ -13,34 +14,16 @@ namespace Diagram.WindowsFormsApplication.Controls
         private Point pt;
         private bool moves = true;
         private DataFormat.TableEntity table = new DataFormat.TableEntity();
-
-        private ContextMenu contextMenu;
-        private MenuItem menuItemDeleteTableEntity;
-
         private Canvas parent;
 
-        public DataFormat.TableEntity GetTable()
-        {
-            return this.table;
-        }
+        public DataFormat.TableEntity Table { get { return this.table; } set { this.table = value; } }
 
-        public TableEntity(Canvas parent)
+        public TableEntity(Canvas parent, bool autoAdd = true)
         {
             this.InitializeComponent();
-            this.InitializeContextMenu();
+            //this.InitializeContextMenu();
             this.parent = parent;
-        }
-
-        private void InitializeContextMenu()
-        {
-            //
-            this.menuItemDeleteTableEntity = new MenuItem();
-            this.menuItemDeleteTableEntity.Text = "Delete table";
-            this.menuItemDeleteTableEntity.Click += new System.EventHandler(menuItemDeleteTableEntity_Click);
-            //
-            this.contextMenu = new ContextMenu();
-            this.contextMenu.MenuItems.Add(this.menuItemDeleteTableEntity);
-            this.ContextMenu = this.contextMenu;
+            if (autoAdd) this.parent.Tables.Add(this.table);
         }
 
         public void SetForm()
@@ -52,9 +35,37 @@ namespace Diagram.WindowsFormsApplication.Controls
             {
                 // 添加项目
                 Label lbl = new Label();
+                //lbl.Dock = DockStyle.Top;
                 lbl.Text = column.ToString();
-                this.pnlColumns.Controls.Clear();
+                this.pnlColumns.Controls.Add(lbl);
             }
+        }
+
+        public XmlElement SaveUI(XmlDocument document)
+        {
+            XmlElement ele = document.CreateElement("Table");
+            //
+            XmlAttribute att0 = document.CreateAttribute("Identity");
+            att0.Value = table.Identity.ToString();
+            ele.Attributes.Append(att0);
+            //
+            XmlAttribute att1 = document.CreateAttribute("Location");
+            att1.Value = this.Location.X + "," + this.Location.Y;
+            ele.Attributes.Append(att1);
+            return ele;
+        }
+
+        public static TableEntity LoadUI(Canvas parent, XmlNode node, out Guid identity)
+        {
+            TableEntity table = new TableEntity(parent, false);
+            int x = 0;
+            int y = 0;
+            string[] value = node.Attributes["Location"].Value.Split(',');
+            if (value.Length >= 0) int.TryParse(value[0], out x);
+            if (value.Length >= 1) int.TryParse(value[1], out y);
+            table.Location = new Point(x, y);
+            identity = Guid.Parse(node.Attributes["Identity"].Value);
+            return table;
         }
 
         #region lblTableName事件
@@ -89,10 +100,12 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         #endregion
 
-        private void menuItemDeleteTableEntity_Click(object sender, EventArgs e)
+        private void menuDeleteTable_Click(object sender, EventArgs e)
         {
-            this.parent.removeTable(this);
+            if (MessageBox.Show("是否删除表?", "删除确认", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                this.parent.removeTable(this);
+            }
         }
-
     }
 }

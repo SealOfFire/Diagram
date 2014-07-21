@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
 namespace DataFormat
 {
-    public class ColumnEntity
+    public class ColumnEntity : IComparable<ColumnEntity>, IComparer<ColumnEntity>
     {
+
+        #region
+
         private Guid identity = Guid.NewGuid();
         private string physicsName = "column_name";
         private string conceptName = "column_name";
@@ -14,7 +18,11 @@ namespace DataFormat
         private int size = 10;
         private int d = -1;
         private int sort = 0;
+        private TableEntity parent;
 
+        #endregion
+
+        #region 属性
 
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
@@ -23,15 +31,93 @@ namespace DataFormat
         public string DataType { get { return this.dataType; } set { this.dataType = value; } }
         public int Size { get { return this.size; } set { this.size = value; } }
         public int Decimal { get { return this.d; } set { this.d = value; } }
+        public int Sort { get { return this.sort; } set { this.sort = value; } }
+        public TableEntity Parent { get { return this.parent; } set { this.parent = value; } }
+        public string Length
+        {
+            get
+            {
+                return this.size.ToString() + (d > 0 ? "," + d.ToString() : string.Empty);
+            }
+            set
+            {
+                string[] val = value.Split(',');
+                if (val.Length >= 0)
+                    int.TryParse(val[0], out this.size);
+                if (val.Length >= 1)
+                    int.TryParse(val[1], out this.d);
+            }
+        }
+
+        #endregion
+
+        #region 构造函数
+
+        public ColumnEntity(TableEntity parent)
+        {
+            this.parent = parent;
+            this.Initialize();
+        }
+
+        #endregion
+
+        #region 方法
+
+        public void Initialize()
+        {
+            this.sort = this.parent.Columns.Count;
+        }
+
+        #region override
+
+        int IComparable<ColumnEntity>.CompareTo(ColumnEntity other)
+        {
+            return this.sort - other.sort;
+        }
+
+        int IComparer<ColumnEntity>.Compare(ColumnEntity x, ColumnEntity y)
+        {
+            return x.Sort - y.Sort;
+        }
 
         public override string ToString()
         {
             return ColumnEntity.CreateColumnSQLText(this);
         }
 
-        public static ColumnEntity Load(XmlNode node)
+        #endregion
+
+        #region sql
+
+        public string CreateColumnSQLText()
         {
-            ColumnEntity column = new ColumnEntity();
+            return ColumnEntity.CreateColumnSQLText(this);
+        }
+
+        public static string CreateColumnSQLText(ColumnEntity column)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(column.PhysicsName); // 列名
+            sb.Append(" "); // 空格
+            sb.Append(column.DataType); // 数据类型
+            sb.Append("(");
+            sb.Append(column.Size); // 长度
+            if (column.Decimal >= 0)
+            {
+                sb.Append(",");
+                sb.Append(column.Decimal);
+            }
+            sb.Append(")");
+            return sb.ToString();
+        }
+
+        #endregion
+
+        #region xml
+
+        public static ColumnEntity Load(TableEntity parent, XmlNode node)
+        {
+            ColumnEntity column = new ColumnEntity(parent);
             column.Identity = Guid.Parse(node.Attributes["Identity"].Value);
             column.PhysicsName = node.Attributes["PhysicsName"].Value;
             column.ConceptName = node.Attributes["ConceptName"].Value;
@@ -81,27 +167,9 @@ namespace DataFormat
             return ele;
         }
 
-        public string CreateColumnSQLText()
-        {
-            return ColumnEntity.CreateColumnSQLText(this);
-        }
+        #endregion
 
-        public static string CreateColumnSQLText(ColumnEntity column)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(column.PhysicsName); // 列名
-            sb.Append(" "); // 空格
-            sb.Append(column.DataType); // 数据类型
-            sb.Append("(");
-            sb.Append(column.Size); // 长度
-            if (column.Decimal >= 0)
-            {
-                sb.Append(",");
-                sb.Append(column.Decimal);
-            }
-            sb.Append(")");
-            return sb.ToString();
-        }
+        #endregion
 
     }
 }
