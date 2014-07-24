@@ -21,7 +21,6 @@ namespace Diagram.WindowsFormsApplication.Controls
         public TableEntity(Canvas parent, bool autoAdd = true)
         {
             this.InitializeComponent();
-            //this.InitializeContextMenu();
             this.parent = parent;
             if (autoAdd) this.parent.Tables.Add(this.table);
         }
