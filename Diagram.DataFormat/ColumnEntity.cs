@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace DataFormat
+namespace Diagram.DataFormat
 {
     /// <summary>
     /// 
@@ -11,7 +11,7 @@ namespace DataFormat
     public class ColumnEntity : IComparable<ColumnEntity>, IComparer<ColumnEntity>
     {
 
-        #region
+        #region 字段
 
         private Guid identity = Guid.NewGuid();
         private string physicsName = "column_name";
@@ -25,6 +25,7 @@ namespace DataFormat
         private bool isPrimaryKey = false;
         private bool allowNulls = true;
         private TableEntity parent;
+        private ColumnEntity fkCoumn;
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace DataFormat
         public int Decimal { get { return this.d; } set { this.d = value; } }
         public int Sort { get { return this.sort; } set { this.sort = value; } }
         public TableEntity Parent { get { return this.parent; } set { this.parent = value; } }
-
+        public ColumnEntity ForeignKeyColumn { get { return this.fkCoumn; } set { this.fkCoumn = value; } }
         public bool AllowNulls { get { return this.allowNulls; } set { this.allowNulls = value; } }
         public bool PrimaryKey
         {

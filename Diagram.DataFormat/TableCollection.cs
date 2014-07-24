@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace DataFormat
+namespace Diagram.DataFormat
 {
     /// <summary>
     /// 
@@ -17,7 +17,7 @@ namespace DataFormat
         private List<TableEntity> tables = new List<TableEntity>();
         private List<ForeignKeyEntity> fkColumn = new List<ForeignKeyEntity>();
 
-        #region
+        #region 属性
 
         public TableEntity this[int index] { get { return this.tables[index]; } }
 
@@ -60,6 +60,12 @@ namespace DataFormat
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.tables.GetEnumerator();
+        }
+
+        public void CreateForeignKey(ColumnEntity from, ColumnEntity to)
+        {
+            from.ForeignKeyColumn = to;
+            this.fkColumn.Add(new ForeignKeyEntity(from, to));
         }
 
         #region sql

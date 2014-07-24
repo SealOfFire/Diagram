@@ -1,5 +1,4 @@
-﻿using DataFormat;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Diagram.Windows.Forms.Controls

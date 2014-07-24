@@ -1,4 +1,4 @@
-﻿using DataFormat;
+﻿using Diagram.DataFormat;
 using System.Windows.Forms;
 
 namespace Diagram.Windows.Forms.Controls

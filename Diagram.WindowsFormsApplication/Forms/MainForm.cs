@@ -1,5 +1,4 @@
-﻿using DataFormat;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Diagram.WindowsFormsApplication.Forms
