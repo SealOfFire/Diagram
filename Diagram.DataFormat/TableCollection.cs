@@ -70,6 +70,25 @@ namespace DataFormat
             return sb.ToString();
         }
 
+        public string DeleteTableSQLText()
+        {
+            return TableCollection.DeleteTableSQLText(this);
+        }
+
+        public static string DeleteTableSQLText(TableCollection tables)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (TableEntity table in tables)
+            {
+                sb.AppendLine("-- 删除表[" + table.PhysicsName + "]开始--------------------");
+                sb.Append("DELETE FROM ");
+                sb.Append(table.PhysicsName);
+                sb.AppendLine("-- 删除表[" + table.PhysicsName + "]结束--------------------");
+                sb.AppendLine();
+            }
+            return sb.ToString();
+        }
+
         #endregion
 
         #region xml
