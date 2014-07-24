@@ -30,13 +30,23 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.lblTableName.Text = this.table.PhysicsName;
             // 清除其他内容
             this.pnlColumns.Controls.Clear();
-            foreach (DataFormat.ColumnEntity column in this.table.Columns)
+            this.pnlColumns.RowCount = this.table.Columns.Count;
+            for (int i = 0; i < this.table.Columns.Count; i++)
             {
                 // 添加项目
                 Label lbl = new Label();
-                //lbl.Dock = DockStyle.Top;
-                lbl.Text = column.ToString();
-                this.pnlColumns.Controls.Add(lbl);
+                lbl.Dock = DockStyle.Fill;
+                if (this.table.Columns[i].PrimaryKey)
+                {
+                    // lbl.ForeColor = Color.Red;
+                    lbl.Text = "PK|";
+                }
+                else
+                {
+                    lbl.Text = "  |";
+                }
+                lbl.Text += this.table.Columns[i].ToString().Replace(' ', '|');
+                this.pnlColumns.Controls.Add(lbl, 0, i);
             }
         }
 

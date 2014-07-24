@@ -8,17 +8,21 @@ namespace DataFormat
     public class TableEntity
     {
         #region
+
         private Guid identity = Guid.NewGuid();
         private string physicsName = "table_name";
         private string conceptName = "table_name";
         private string annotation = string.Empty;
         private List<ColumnEntity> columns = new List<ColumnEntity>();
+        private List<ColumnEntity> pkColumns = new List<ColumnEntity>();
 
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
         public List<ColumnEntity> Columns { get { return this.columns; } set { this.columns = value; } }
+        public List<ColumnEntity> PrimaryKeyColumns { get { return this.pkColumns; } set { this.pkColumns = value; } }
+
         #endregion
 
         #region
@@ -52,6 +56,16 @@ namespace DataFormat
             this.columns.Remove(item);
         }
 
+        public void SetPrimaryKeyColumnsFromColumn()
+        {
+            this.PrimaryKeyColumns.Clear();
+            foreach (ColumnEntity col in columns)
+            {
+                if (col.PrimaryKey)
+                    this.PrimaryKeyColumns.Add(col);
+            }
+        }
+
         #region xml
 
         public static TableEntity Load(XmlNode node)
@@ -67,6 +81,7 @@ namespace DataFormat
                 table.columns.Add(ColumnEntity.Load(table, xmlColumn));
                 //tables.Add(TableEntity.Load(node));
             }
+            table.SetPrimaryKeyColumnsFromColumn();
             return table;
         }
 
@@ -118,16 +133,28 @@ namespace DataFormat
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("CREATE TABLE ");
-            sb.Append(table.physicsName); // 表名
+            sb.Append(table.PhysicsName); // 表名
             sb.AppendLine("(");
             // 列
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                sb.Append(table.columns[i].CreateColumnSQLText());
-                if (i < table.columns.Count - 1)
-                    sb.AppendLine(",");
+                if (i > 0)
+                    sb.Append(",");
                 else
-                    sb.AppendLine();
+                    sb.Append(" ");
+                sb.AppendLine(table.columns[i].CreateColumnSQLText());
+            }
+            // 主键 
+            if (table.PrimaryKeyColumns != null && table.PrimaryKeyColumns.Count > 0)
+            {
+                sb.Append(",CONSTRAINT PK_" + table.PhysicsName + " PRIMARY KEY (");
+                for (int i = 0; i < table.PrimaryKeyColumns.Count; i++)
+                {
+                    if (i > 0)
+                        sb.Append(",");
+                    sb.Append(table.PrimaryKeyColumns[i].PhysicsName);
+                }
+                sb.AppendLine(")");
             }
             sb.Append(")");
             return sb.ToString();

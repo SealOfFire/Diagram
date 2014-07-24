@@ -14,7 +14,7 @@ namespace Diagram.WindowsFormsApplication.Forms
             InitializeComponent();
             this.gvColumnList.AutoGenerateColumns = false;
             this.table = table;
-            this.table.AddColumnEntity();
+            //this.table.AddColumnEntity();
             this.SetForm();
         }
 
@@ -31,6 +31,7 @@ namespace Diagram.WindowsFormsApplication.Forms
             this.table.ConceptName = this.txtConceptName.Text;
             this.table.PhysicsName = this.txtPhysicsName.Text;
             this.table.Annotation = this.txtAnnotation.Text;
+            this.table.SetPrimaryKeyColumnsFromColumn();
         }
 
         #region 事件
@@ -59,6 +60,11 @@ namespace Diagram.WindowsFormsApplication.Forms
         }
 
         #endregion
+
+        private void gvColumnList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.GetForm();
+        }
 
     }
 }

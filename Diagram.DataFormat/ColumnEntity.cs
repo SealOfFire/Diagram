@@ -15,9 +15,12 @@ namespace DataFormat
         private string conceptName = "column_name";
         private string annotation = string.Empty;
         private string dataType = "char";
+        private string defaultValue = string.Empty;
         private int size = 10;
         private int d = -1;
         private int sort = 0;
+        private bool isPrimaryKey = false;
+        private bool allowNulls = true;
         private TableEntity parent;
 
         #endregion
@@ -29,10 +32,23 @@ namespace DataFormat
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
         public string DataType { get { return this.dataType; } set { this.dataType = value; } }
+        public string DefaultValue { get { return this.defaultValue; } set { this.defaultValue = value; } }
         public int Size { get { return this.size; } set { this.size = value; } }
         public int Decimal { get { return this.d; } set { this.d = value; } }
         public int Sort { get { return this.sort; } set { this.sort = value; } }
         public TableEntity Parent { get { return this.parent; } set { this.parent = value; } }
+
+        public bool AllowNulls { get { return this.allowNulls; } set { this.allowNulls = value; } }
+        public bool PrimaryKey
+        {
+            get { return this.isPrimaryKey; }
+            set
+            {
+                this.isPrimaryKey = value;
+                this.allowNulls = !value;
+            }
+        }
+
         public string Length
         {
             get
@@ -41,11 +57,19 @@ namespace DataFormat
             }
             set
             {
-                string[] val = value.Split(',');
-                if (val.Length >= 0)
-                    int.TryParse(val[0], out this.size);
-                if (val.Length >= 1)
-                    int.TryParse(val[1], out this.d);
+                if (value == null)
+                {
+                    this.size = -1;
+                    this.d = -1;
+                }
+                else
+                {
+                    string[] val = value.Split(',');
+                    if (val.Length >= 0)
+                        int.TryParse(val[0], out this.size);
+                    if (val.Length >= 1)
+                        int.TryParse(val[1], out this.d);
+                }
             }
         }
 
@@ -100,14 +124,32 @@ namespace DataFormat
             sb.Append(column.PhysicsName); // 列名
             sb.Append(" "); // 空格
             sb.Append(column.DataType); // 数据类型
-            sb.Append("(");
-            sb.Append(column.Size); // 长度
-            if (column.Decimal >= 0)
+            if (column.Size >= 0)
             {
-                sb.Append(",");
-                sb.Append(column.Decimal);
+                sb.Append("(");
+                sb.Append(column.Size); // 长度
+                if (column.Decimal >= 0)
+                {
+                    sb.Append(",");
+                    sb.Append(column.Decimal);
+                }
+                sb.Append(")");
             }
-            sb.Append(")");
+            // 默认值
+            if (string.IsNullOrEmpty(column.DefaultValue))
+            {
+                // 准许空
+                if (column.AllowNulls)
+                    sb.Append(" NULL ");
+                else
+                    sb.Append(" NOT NULL ");
+            }
+            else
+            {
+                sb.Append(" DEFAULT ");
+                sb.Append(column.DefaultValue);
+                sb.Append(" ");
+            }
             return sb.ToString();
         }
 
@@ -119,14 +161,53 @@ namespace DataFormat
         {
             ColumnEntity column = new ColumnEntity(parent);
             column.Identity = Guid.Parse(node.Attributes["Identity"].Value);
-            column.PhysicsName = node.Attributes["PhysicsName"].Value;
-            column.ConceptName = node.Attributes["ConceptName"].Value;
-            column.Annotation = node.Attributes["Annotation"].Value;
-            column.DataType = node.Attributes["DataType"].Value;
-            column.Size = int.Parse(node.Attributes["Size"].Value);
-            column.Decimal = int.Parse(node.Attributes["Decimal"].Value);
+            column.PhysicsName = GetString(node, "PhysicsName"); //node.Attributes["PhysicsName"].Value;
+            column.ConceptName = GetString(node, "ConceptName"); // node.Attributes["ConceptName"].Value;
+            column.Annotation = GetString(node, "Annotation"); //node.Attributes["Annotation"].Value;
+            column.DataType = GetString(node, "DataType"); //node.Attributes["DataType"].Value;
+            column.DefaultValue = GetString(node, "DefaultValue"); //node.Attributes["DefaultValue"].Value;
+            column.Size = GetInt(node, "Size"); // int.Parse(node.Attributes["Size"].Value);
+            column.Decimal = GetInt(node, "Size"); // int.Parse(node.Attributes["Decimal"].Value);
+            column.PrimaryKey = GetBoolean(node, "PrimaryKey"); // bool.Parse(node.Attributes["PrimaryKey"].Value);
+            column.AllowNulls = GetBoolean(node, "AllowNulls"); // bool.Parse(node.Attributes["AllowNulls"].Value);
             return column;
         }
+
+        #region get value
+
+        public static string GetString(XmlNode node, string name)
+        {
+            if (node.Attributes[name] == null)
+                return string.Empty;
+            else
+                return node.Attributes[name].Value;
+        }
+
+        public static bool GetBoolean(XmlNode node, string name)
+        {
+            if (node.Attributes[name] == null)
+                return false;
+            else
+            {
+                bool value = false;
+                bool.TryParse(node.Attributes[name].Value, out value);
+                return value;
+            }
+        }
+
+        public static int GetInt(XmlNode node, string name)
+        {
+            if (node.Attributes[name] == null)
+                return 0;
+            else
+            {
+                int value = 0;
+                int.TryParse(node.Attributes[name].Value, out value);
+                return value;
+            }
+        }
+
+        #endregion
 
         public XmlElement CreateXmlElement(XmlDocument document)
         {
@@ -140,6 +221,10 @@ namespace DataFormat
             XmlAttribute att0 = document.CreateAttribute("Identity");
             att0.Value = column.Identity.ToString();
             ele.Attributes.Append(att0);
+            //
+            XmlAttribute att7 = document.CreateAttribute("PrimaryKey");
+            att7.Value = column.PrimaryKey.ToString();
+            ele.Attributes.Append(att7);
             //
             XmlAttribute att1 = document.CreateAttribute("PhysicsName");
             att1.Value = column.PhysicsName;
@@ -164,6 +249,14 @@ namespace DataFormat
             XmlAttribute att6 = document.CreateAttribute("Decimal");
             att6.Value = column.Decimal.ToString();
             ele.Attributes.Append(att6);
+            //
+            XmlAttribute att8 = document.CreateAttribute("AllowNulls");
+            att8.Value = column.AllowNulls.ToString();
+            ele.Attributes.Append(att8);
+            //
+            XmlAttribute att9 = document.CreateAttribute("DefaultValue");
+            att9.Value = column.DefaultValue.ToString();
+            ele.Attributes.Append(att9);
             return ele;
         }
 
