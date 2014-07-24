@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnEntity.cs" />
+    <Compile Include="ForeignKeyEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableCollection.cs" />
     <Compile Include="TableEntity.cs" />

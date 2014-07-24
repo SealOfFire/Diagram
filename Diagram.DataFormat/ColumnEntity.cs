@@ -5,6 +5,9 @@ using System.Xml;
 
 namespace DataFormat
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ColumnEntity : IComparable<ColumnEntity>, IComparer<ColumnEntity>
     {
 

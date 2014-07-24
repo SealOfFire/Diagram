@@ -1,19 +1,23 @@
-﻿using System;
+﻿using Diagram.DataFormat;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace DataFormat
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TableCollection : IEnumerable
     {
-        #region
 
         private List<TableEntity> tables = new List<TableEntity>();
+        private List<ForeignKeyEntity> fkColumn = new List<ForeignKeyEntity>();
+
+        #region
 
         public TableEntity this[int index] { get { return this.tables[index]; } }
 
@@ -23,6 +27,14 @@ namespace DataFormat
             {
                 foreach (TableEntity table in this.tables) if (table.Identity == identity) return table;
                 return null;
+            }
+        }
+
+        public List<ForeignKeyEntity> ForeignKeyColumn
+        {
+            get
+            {
+                return this.fkColumn;
             }
         }
 
