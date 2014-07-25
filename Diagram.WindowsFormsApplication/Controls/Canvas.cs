@@ -1,4 +1,5 @@
 ﻿using Diagram.DataFormat;
+using Diagram.WindowsFormsApplication.Forms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -156,6 +157,17 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.AddTable();
         }
 
+        /// <summary>
+        /// 追加外键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuAddForeignKey_Click(object sender, EventArgs e)
+        {
+            new ForeignKeyEditForm(this).ShowDialog();
+        }
+
         #endregion
+
     }
 }

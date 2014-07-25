@@ -34,13 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtConceptName = new System.Windows.Forms.TextBox();
             this.gvColumnList = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuAddColumn = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuDelColumn = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtAnnotation = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.pk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.fk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +42,13 @@
             this.Column2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.注视 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuAddColumn = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDelColumn = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtAnnotation = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvColumnList)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -110,67 +110,6 @@
             this.gvColumnList.TabIndex = 4;
             this.gvColumnList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvColumnList_CellContentClick);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuAddColumn,
-            this.menuDelColumn});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 48);
-            // 
-            // menuAddColumn
-            // 
-            this.menuAddColumn.Name = "menuAddColumn";
-            this.menuAddColumn.Size = new System.Drawing.Size(161, 22);
-            this.menuAddColumn.Text = "Add Column";
-            this.menuAddColumn.Click += new System.EventHandler(this.menuAddColumn_Click);
-            // 
-            // menuDelColumn
-            // 
-            this.menuDelColumn.Name = "menuDelColumn";
-            this.menuDelColumn.Size = new System.Drawing.Size(161, 22);
-            this.menuDelColumn.Text = "Delete Column";
-            this.menuDelColumn.Click += new System.EventHandler(this.menuDelColumn_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "注视";
-            // 
-            // txtAnnotation
-            // 
-            this.txtAnnotation.Location = new System.Drawing.Point(85, 43);
-            this.txtAnnotation.Multiline = true;
-            this.txtAnnotation.Name = "txtAnnotation";
-            this.txtAnnotation.Size = new System.Drawing.Size(443, 69);
-            this.txtAnnotation.TabIndex = 6;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(487, 396);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "保存";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(568, 396);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "取消";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // pk
             // 
             this.pk.DataPropertyName = "PrimaryKey";
@@ -231,6 +170,69 @@
             this.注视.HeaderText = "注释";
             this.注视.Name = "注视";
             this.注视.Width = 200;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAddColumn,
+            this.menuDelColumn});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 48);
+            // 
+            // menuAddColumn
+            // 
+            this.menuAddColumn.Name = "menuAddColumn";
+            this.menuAddColumn.Size = new System.Drawing.Size(161, 22);
+            this.menuAddColumn.Text = "Add Column";
+            this.menuAddColumn.Click += new System.EventHandler(this.menuAddColumn_Click);
+            // 
+            // menuDelColumn
+            // 
+            this.menuDelColumn.Name = "menuDelColumn";
+            this.menuDelColumn.Size = new System.Drawing.Size(161, 22);
+            this.menuDelColumn.Text = "Delete Column";
+            this.menuDelColumn.Click += new System.EventHandler(this.menuDelColumn_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "注视";
+            // 
+            // txtAnnotation
+            // 
+            this.txtAnnotation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAnnotation.Location = new System.Drawing.Point(85, 43);
+            this.txtAnnotation.Multiline = true;
+            this.txtAnnotation.Name = "txtAnnotation";
+            this.txtAnnotation.Size = new System.Drawing.Size(443, 69);
+            this.txtAnnotation.TabIndex = 6;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(487, 396);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "保存";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(568, 396);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 8;
+            this.btnCancel.Text = "取消";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // TableEdit
             // 

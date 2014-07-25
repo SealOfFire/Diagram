@@ -1,7 +1,7 @@
-﻿using Diagram.DataFormat;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -11,7 +11,7 @@ namespace Diagram.DataFormat
     /// <summary>
     /// 
     /// </summary>
-    public class TableCollection : IEnumerable
+    public class TableCollection : IEnumerable, IList<TableEntity>, IListSource
     {
 
         private List<TableEntity> tables = new List<TableEntity>();
@@ -157,5 +157,91 @@ namespace Diagram.DataFormat
         #endregion
 
         #endregion
+
+        #region IList接口
+
+        int IList<TableEntity>.IndexOf(TableEntity item)
+        {
+            return this.tables.IndexOf(item);
+        }
+
+        void IList<TableEntity>.Insert(int index, TableEntity item)
+        {
+            this.tables.Insert(index, item);
+        }
+
+        void IList<TableEntity>.RemoveAt(int index)
+        {
+            this.tables.RemoveAt(index);
+        }
+
+        TableEntity IList<TableEntity>.this[int index]
+        {
+            get
+            {
+                return this.tables[index];
+            }
+            set
+            {
+                this.tables[index] = value;
+            }
+        }
+
+        void ICollection<TableEntity>.Add(TableEntity item)
+        {
+            this.tables.Add(item);
+        }
+
+        void ICollection<TableEntity>.Clear()
+        {
+            this.tables.Clear();
+        }
+
+        bool ICollection<TableEntity>.Contains(TableEntity item)
+        {
+            return this.tables.Contains(item);
+        }
+
+        void ICollection<TableEntity>.CopyTo(TableEntity[] array, int arrayIndex)
+        {
+            this.tables.CopyTo(array, arrayIndex);
+        }
+
+        int ICollection<TableEntity>.Count
+        {
+            get { return this.tables.Count; }
+        }
+
+        bool ICollection<TableEntity>.IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        bool ICollection<TableEntity>.Remove(TableEntity item)
+        {
+            return this.tables.Remove(item);
+        }
+
+        IEnumerator<TableEntity> IEnumerable<TableEntity>.GetEnumerator()
+        {
+            return this.tables.GetEnumerator();
+        }
+
+        #endregion
+
+        #region IListSource接口
+
+        public bool ContainsListCollection
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IList GetList()
+        {
+            return this.tables;
+        }
+
+        #endregion
+
     }
 }

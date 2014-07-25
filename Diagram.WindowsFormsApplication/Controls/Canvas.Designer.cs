@@ -31,22 +31,31 @@
             this.components = new System.ComponentModel.Container();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuAddTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAddForeignKey = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuAddTable});
+            this.menuAddTable,
+            this.menuAddForeignKey});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(137, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(173, 48);
             // 
             // menuAddTable
             // 
             this.menuAddTable.Name = "menuAddTable";
-            this.menuAddTable.Size = new System.Drawing.Size(136, 22);
+            this.menuAddTable.Size = new System.Drawing.Size(172, 22);
             this.menuAddTable.Text = "Add Table";
             this.menuAddTable.Click += new System.EventHandler(this.menuAddTable_Click);
+            // 
+            // menuAddForeignKey
+            // 
+            this.menuAddForeignKey.Name = "menuAddForeignKey";
+            this.menuAddForeignKey.Size = new System.Drawing.Size(172, 22);
+            this.menuAddForeignKey.Text = "Add Foreign key";
+            this.menuAddForeignKey.Click += new System.EventHandler(this.menuAddForeignKey_Click);
             // 
             // Canvas
             // 
@@ -63,5 +72,6 @@
 
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem menuAddTable;
+        private System.Windows.Forms.ToolStripMenuItem menuAddForeignKey;
     }
 }
