@@ -57,17 +57,18 @@
     <Compile Include="Controls\Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Column.cs">
+    <Compile Include="Controls\ItemChart.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ItemChartCollection.cs" />
     <Compile Include="Controls\Line.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TableEntity.cs">
+    <Compile Include="Controls\EntityChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TableEntity.Designer.cs">
-      <DependentUpon>TableEntity.cs</DependentUpon>
+    <Compile Include="Controls\EntityChart.Designer.cs">
+      <DependentUpon>EntityChart.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ForeignKeyEditForm.cs">
       <SubType>Form</SubType>
@@ -104,8 +105,8 @@
     <EmbeddedResource Include="Controls\Canvas.resx">
       <DependentUpon>Canvas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TableEntity.resx">
-      <DependentUpon>TableEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\EntityChart.resx">
+      <DependentUpon>EntityChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ForeignKeyEditForm.resx">
       <DependentUpon>ForeignKeyEditForm.cs</DependentUpon>

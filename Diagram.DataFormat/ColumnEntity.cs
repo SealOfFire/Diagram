@@ -110,7 +110,7 @@ namespace Diagram.DataFormat
 
         public override string ToString()
         {
-            return ColumnEntity.CreateColumnSQLText(this);
+            return (this.isPrimaryKey ? "PK " : "   ") + ColumnEntity.CreateColumnSQLText(this);
         }
 
         #endregion

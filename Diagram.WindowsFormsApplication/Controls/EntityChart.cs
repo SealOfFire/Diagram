@@ -7,22 +7,25 @@ using System.Xml;
 namespace Diagram.WindowsFormsApplication.Controls
 {
     /// <summary>
-    /// 表
+    /// 实体图标
     /// </summary>
-    public partial class TableEntity : UserControl
+    public partial class EntityChart : UserControl
     {
         private Point pt;
         private bool moves = true;
+        private ItemChartCollection items;
         private DataFormat.TableEntity table = new DataFormat.TableEntity();
+
         private Canvas parent;
 
         public DataFormat.TableEntity Table { get { return this.table; } set { this.table = value; } }
 
-        public TableEntity(Canvas parent, bool autoAdd = true)
+        public EntityChart(Canvas parent, bool autoAdd = true)
         {
             this.InitializeComponent();
             this.parent = parent;
             if (autoAdd) this.parent.Tables.Add(this.table);
+            this.items = new ItemChartCollection(this);
         }
 
         public void SetForm()
@@ -31,24 +34,20 @@ namespace Diagram.WindowsFormsApplication.Controls
             // 清除其他内容
             this.pnlColumns.Controls.Clear();
             this.pnlColumns.RowCount = this.table.Columns.Count;
-            for (int i = 0; i < this.table.Columns.Count; i++)
+            for (int i = 0; i < this.items.Count; i++)
             {
-                // 添加项目
-                Label lbl = new Label();
-                lbl.Dock = DockStyle.Fill;
-                if (this.table.Columns[i].PrimaryKey)
-                {
-                    // lbl.ForeColor = Color.Red;
-                    lbl.Text = "PK|";
-                }
-                else
-                {
-                    lbl.Text = "  |";
-                }
-                lbl.Text += this.table.Columns[i].ToString().Replace(' ', '|');
-                this.pnlColumns.Controls.Add(lbl, 0, i);
+                this.pnlColumns.Controls.Add(this.items[i], 0, i);
             }
         }
+
+        public ItemChart AddItem()
+        {
+            ItemChart item = new ItemChart(this, this.table.AddColumnEntity());
+            this.items.Add(item);
+            return item;
+        }
+
+        #region xml
 
         public XmlElement SaveUI(XmlDocument document)
         {
@@ -64,9 +63,9 @@ namespace Diagram.WindowsFormsApplication.Controls
             return ele;
         }
 
-        public static TableEntity LoadUI(Canvas parent, XmlNode node, out Guid identity)
+        public static EntityChart LoadUI(Canvas parent, XmlNode node, out Guid identity)
         {
-            TableEntity table = new TableEntity(parent, false);
+            EntityChart table = new EntityChart(parent, false);
             int x = 0;
             int y = 0;
             string[] value = node.Attributes["Location"].Value.Split(',');
@@ -76,6 +75,8 @@ namespace Diagram.WindowsFormsApplication.Controls
             identity = Guid.Parse(node.Attributes["Identity"].Value);
             return table;
         }
+
+        #endregion
 
         #region lblTableName事件
 
@@ -103,7 +104,7 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         private void lblTableName_DoubleClick(object sender, EventArgs e)
         {
-            new TableEdit(this.table).ShowDialog();
+            new TableEdit(this).ShowDialog();
             this.SetForm();
         }
 

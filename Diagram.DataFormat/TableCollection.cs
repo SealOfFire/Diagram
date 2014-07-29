@@ -62,8 +62,18 @@ namespace Diagram.DataFormat
             return this.tables.GetEnumerator();
         }
 
+        /// <summary>
+        /// 建立外键
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
         public void CreateForeignKey(ColumnEntity from, ColumnEntity to)
         {
+            // 检查外键是否已经存在
+            foreach (ForeignKeyEntity fk in fkColumn)
+                if (fk.FromColumn.Identity == from.Identity && fk.ToColumn.Identity == to.Identity)
+                    return;
+            // 创建外键
             from.ForeignKeyColumn = to;
             this.fkColumn.Add(new ForeignKeyEntity(from, to));
         }

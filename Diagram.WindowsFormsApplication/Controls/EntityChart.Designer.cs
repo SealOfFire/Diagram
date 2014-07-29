@@ -9,7 +9,7 @@ namespace Diagram.WindowsFormsApplication.Controls
     /// <summary>
     /// 表
     /// </summary>
-    partial class TableEntity
+    partial class EntityChart
     {
         /// <summary> 
         /// 必需的设计器变量。

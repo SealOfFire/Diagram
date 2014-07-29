@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseData\Entity.cs" />
+    <Compile Include="ColumnCollection.cs" />
     <Compile Include="ColumnEntity.cs" />
     <Compile Include="ForeignKeyEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

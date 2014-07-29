@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Diagram.WindowsFormsApplication.Controls;
+using System.Windows.Forms;
 
 namespace Diagram.WindowsFormsApplication.Forms
 {
@@ -7,31 +8,30 @@ namespace Diagram.WindowsFormsApplication.Forms
     /// </summary>
     public partial class TableEdit : Form
     {
-        private DataFormat.TableEntity table;
+        private EntityChart entity;
 
-        public TableEdit(DataFormat.TableEntity table)
+        public TableEdit(EntityChart entity)
         {
             InitializeComponent();
             this.gvColumnList.AutoGenerateColumns = false;
-            this.table = table;
-            //this.table.AddColumnEntity();
+            this.entity = entity;
             this.SetForm();
         }
 
         private void SetForm()
         {
-            this.txtConceptName.Text = this.table.ConceptName;
-            this.txtPhysicsName.Text = this.table.PhysicsName;
-            this.txtAnnotation.Text = this.table.Annotation;
-            this.gvColumnList.DataSource = this.table.Columns;
+            this.txtConceptName.Text = this.entity.Table.ConceptName;
+            this.txtPhysicsName.Text = this.entity.Table.PhysicsName;
+            this.txtAnnotation.Text = this.entity.Table.Annotation;
+            this.gvColumnList.DataSource = this.entity.Table.Columns;
         }
 
         private void GetForm()
         {
-            this.table.ConceptName = this.txtConceptName.Text;
-            this.table.PhysicsName = this.txtPhysicsName.Text;
-            this.table.Annotation = this.txtAnnotation.Text;
-            this.table.SetPrimaryKeyColumnsFromColumn();
+            this.entity.Table.ConceptName = this.txtConceptName.Text;
+            this.entity.Table.PhysicsName = this.txtPhysicsName.Text;
+            this.entity.Table.Annotation = this.txtAnnotation.Text;
+            this.entity.Table.SetPrimaryKeyColumnsFromColumn();
         }
 
         #region 事件
@@ -49,9 +49,10 @@ namespace Diagram.WindowsFormsApplication.Forms
 
         private void menuAddColumn_Click(object sender, System.EventArgs e)
         {
-            this.table.AddColumnEntity();
+            //this.table.AddColumnEntity();
+            this.entity.AddItem();
             this.gvColumnList.DataSource = null;
-            this.gvColumnList.DataSource = this.table.Columns;
+            this.gvColumnList.DataSource = this.entity.Table.Columns;
         }
 
         private void menuDelColumn_Click(object sender, System.EventArgs e)

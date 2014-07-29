@@ -32,6 +32,8 @@ namespace Diagram.WindowsFormsApplication.Controls
 
         #region 方法
 
+        #region xml
+
         /// <summary>
         /// 读取数据
         /// </summary>
@@ -61,7 +63,7 @@ namespace Diagram.WindowsFormsApplication.Controls
             foreach (XmlNode node in xmlTables)
             {
                 Guid id = Guid.Empty;
-                TableEntity table = TableEntity.LoadUI(this, node, out id);
+                EntityChart table = EntityChart.LoadUI(this, node, out id);
                 table.Table = tables[id];
                 table.SetForm();
                 this.Controls.Add(table);
@@ -103,14 +105,16 @@ namespace Diagram.WindowsFormsApplication.Controls
             XmlElement ele = document.CreateElement("UI");
             foreach (Control col in this.Controls)
             {
-                if (col is TableEntity)
+                if (col is EntityChart)
                 {
-                    TableEntity table = col as TableEntity;
+                    EntityChart table = col as EntityChart;
                     ele.AppendChild(table.SaveUI(document));
                 }
             }
             return ele;
         }
+
+        #endregion
 
         /// <summary>
         /// 导出sql文
@@ -125,9 +129,9 @@ namespace Diagram.WindowsFormsApplication.Controls
         /// 追加表
         /// </summary>
         /// <returns></returns>
-        public TableEntity AddTable()
+        public EntityChart AddTable()
         {
-            TableEntity control = new TableEntity(this);
+            EntityChart control = new EntityChart(this);
             this.Controls.Add(control);
             return control;
         }
@@ -136,11 +140,24 @@ namespace Diagram.WindowsFormsApplication.Controls
         /// 删除表
         /// </summary>
         /// <param name="table"></param>
-        public void removeTable(TableEntity table)
+        public void removeTable(EntityChart table)
         {
             this.Controls.Remove(table);
             this.tables.Remove(table.Table);
             table.Dispose();
+        }
+
+        /// <summary>
+        /// 创建外键
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        public void CreateForeignKey(ColumnEntity from, ColumnEntity to)
+        {
+            // 添加数据
+            this.tables.CreateForeignKey(from, to);
+            // 添加外键控件
+            this.Controls.Add(new TextBox());
         }
 
         #endregion

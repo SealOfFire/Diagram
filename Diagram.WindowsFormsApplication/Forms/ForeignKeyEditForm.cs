@@ -1,6 +1,7 @@
 ﻿using Diagram.WindowsFormsApplication.Controls;
 using System;
 using System.Collections;
+using System.Data;
 using System.Windows.Forms;
 
 namespace Diagram.WindowsFormsApplication.Forms
@@ -10,13 +11,54 @@ namespace Diagram.WindowsFormsApplication.Forms
     /// </summary>
     public partial class ForeignKeyEditForm : Form
     {
-        private Canvas cancvas;
+        #region 字段
 
+        private Canvas cancvas;
+        private DataTable soruceTableFrom;
+        private DataTable soruceTableTo;
+        private DataTable soruceColumnFrom;
+        private DataTable soruceColumnTo;
+        private DataTable[] soruceTables;
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancvas"></param>
         public ForeignKeyEditForm(Canvas cancvas)
         {
             InitializeComponent();
             this.cancvas = cancvas;
+            this.InitializeDataTable();
             this.InitializeComboBox();
+        }
+
+        #endregion
+
+        #region 方法
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void InitializeDataTable()
+        {
+            this.soruceTableFrom = new DataTable();
+            this.soruceTableTo = new DataTable();
+            this.soruceColumnFrom = new DataTable();
+            this.soruceColumnTo = new DataTable();
+            this.soruceTables = new DataTable[4];
+            this.soruceTables[0] = this.soruceTableFrom;
+            this.soruceTables[1] = this.soruceTableTo;
+            this.soruceTables[2] = this.soruceColumnFrom;
+            this.soruceTables[3] = this.soruceColumnTo;
+            foreach (DataTable dt in this.soruceTables)
+            {
+                dt.Columns.Add(new DataColumn("value"));
+                dt.Columns.Add(new DataColumn("display"));
+            }
         }
 
         /// <summary>
@@ -25,23 +67,44 @@ namespace Diagram.WindowsFormsApplication.Forms
         public void InitializeComboBox()
         {
             //
-            this.cmbTableFrom.Items.Clear();
-            // this.cmbTableFrom.DataSource = cancvas.Tables;
-            //
-            this.cmdTableTo.Items.Clear();
-            // this.cmdTableTo.DataSource = cancvas.Tables;
-
             foreach (DataFormat.TableEntity table in cancvas.Tables)
             {
-                this.cmbTableFrom.Items.Add(new DictionaryEntry(table.Identity, table.PhysicsName));
-                this.cmdTableTo.Items.Add(new DictionaryEntry(table.PhysicsName, table.Identity));
+                this.soruceTableFrom.Rows.Add(table.Identity, table.PhysicsName);
+                this.soruceTableTo.Rows.Add(table.Identity, table.PhysicsName);
             }
+            //
+            this.cmbTableFrom.DataSource = this.soruceTableFrom;
+            this.cmbTableFrom.DisplayMember = "display";
+            this.cmbTableFrom.ValueMember = "value";
+            // this.cmbTableFrom.SelectedIndex = 0;
+            //
+            this.cmdTableTo.DataSource = this.soruceTableTo;
+            this.cmdTableTo.DisplayMember = "display";
+            this.cmdTableTo.ValueMember = "value";
+            // this.cmdTableTo.SelectedIndex = 0;
+            //
+            this.cmbColumnFrom.DataSource = this.soruceColumnFrom;
+            this.cmbColumnFrom.DisplayMember = "display";
+            this.cmbColumnFrom.ValueMember = "value";
+            //
+            this.cmbColumnTo.DataSource = this.soruceColumnTo;
+            this.cmbColumnTo.DisplayMember = "display";
+            this.cmbColumnTo.ValueMember = "value";
         }
+
+        #endregion
 
         #region 事件
 
         private void btnSave_Click(object sender, System.EventArgs e)
         {
+            // 获取选中的项目
+            Guid fromID = Guid.Empty, toID = Guid.Empty, colFromID, colToID;
+            Guid.TryParse(this.cmbTableFrom.SelectedValue.ToString(), out fromID);
+            Guid.TryParse(this.cmbTableFrom.SelectedValue.ToString(), out toID);
+            Guid.TryParse(this.cmbColumnFrom.SelectedValue.ToString(), out colFromID);
+            Guid.TryParse(this.cmbColumnTo.SelectedValue.ToString(), out colToID);
+            this.cancvas.CreateForeignKey(this.cancvas.Tables[fromID].Columns[colFromID], this.cancvas.Tables[toID].Columns[colToID]);
             this.Close();
         }
 
@@ -63,23 +126,18 @@ namespace Diagram.WindowsFormsApplication.Forms
 
                 if (cmb.Name == this.cmbTableFrom.Name)
                 {
-                    foreach (DataFormat.ColumnEntity col in table.Columns)
-                    {
-                        this.cmbColumnFrom.Items.Add(col.PhysicsName);
-                    }
+                    this.soruceColumnFrom.Clear();
+                    foreach (DataFormat.ColumnEntity col in table.Columns) this.soruceColumnFrom.Rows.Add(col.Identity, col.PhysicsName);
                 }
 
                 if (cmb.Name == this.cmdTableTo.Name)
                 {
-                    foreach (DataFormat.ColumnEntity col in table.Columns)
-                    {
-                        this.cmbColumnTo.Items.Add(col.PhysicsName);
-                    }
+                    this.soruceColumnTo.Clear();
+                    foreach (DataFormat.ColumnEntity col in table.Columns) this.soruceColumnTo.Rows.Add(col.Identity, col.PhysicsName);
                 }
             }
         }
 
         #endregion
-
     }
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Diagram.DataFormat.BaseData;
+using System;
 using System.Text;
 using System.Xml;
 
@@ -8,7 +8,7 @@ namespace Diagram.DataFormat
     /// <summary>
     /// 
     /// </summary>
-    public class TableEntity
+    public class TableEntity:Entity
     {
         #region
 
@@ -16,17 +16,23 @@ namespace Diagram.DataFormat
         private string physicsName = "table_name";
         private string conceptName = "table_name";
         private string annotation = string.Empty;
-        private List<ColumnEntity> columns = new List<ColumnEntity>();
-        private List<ColumnEntity> pkColumns = new List<ColumnEntity>();
+        private ColumnCollection columns;
+        private ColumnCollection pkColumns;
 
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
-        public List<ColumnEntity> Columns { get { return this.columns; } set { this.columns = value; } }
-        public List<ColumnEntity> PrimaryKeyColumns { get { return this.pkColumns; } set { this.pkColumns = value; } }
+        public ColumnCollection Columns { get { return this.columns; } set { this.columns = value; } }
+        public ColumnCollection PrimaryKeyColumns { get { return this.pkColumns; } set { this.pkColumns = value; } }
 
         #endregion
+
+        public TableEntity()
+        {
+            this.columns = new ColumnCollection(this);
+            this.pkColumns = new ColumnCollection(this);
+        }
 
         #region
 
