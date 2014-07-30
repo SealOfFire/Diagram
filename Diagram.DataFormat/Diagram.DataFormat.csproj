@@ -46,8 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseData\Entity.cs" />
-    <Compile Include="BaseData\EntityCollection.cs" />
-    <Compile Include="BaseData\Item.cs" />
+    <Compile Include="BaseData\EntityCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BaseData\Item.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BaseData\ItemCollection.cs" />
     <Compile Include="ColumnCollection.cs" />
     <Compile Include="ColumnEntity.cs" />
