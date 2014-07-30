@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Diagram.DataFormat.BaseData
 {
-    public class EntityCollection : IEnumerable, IList<Entity>, IListSource
+    public class EntityCollection<TEntity> : IEnumerable, IList<Entity>, IListSource where TEntity : Entity
     {
         private List<Entity> entities = new List<Entity>();
 

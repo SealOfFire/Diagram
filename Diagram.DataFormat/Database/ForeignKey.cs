@@ -19,7 +19,7 @@ namespace Diagram.DataFormat.Database
         {
             this.fromColumn = from;
             this.toColumn = to;
-            // this.name = string.Format("fk_{0}.{1}_{2}.{3}", from.Parent.PhysicsName, from.PhysicsName, to.Parent.PhysicsName, to.PhysicsName);
+            this.name = string.Format("fk_{0}.{1}_{2}.{3}", from.Parent.PhysicsName, from.PhysicsName, to.Parent.PhysicsName, to.PhysicsName);
         }
     }
 }

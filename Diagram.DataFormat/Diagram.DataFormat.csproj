@@ -56,6 +56,9 @@
     <Compile Include="ColumnCollection.cs" />
     <Compile Include="ColumnEntity.cs" />
     <Compile Include="Database\Column.cs" />
+    <Compile Include="Database\ColumnCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Database\ForeignKey.cs" />
     <Compile Include="Database\Table.cs" />
     <Compile Include="Database\TableCollection.cs" />

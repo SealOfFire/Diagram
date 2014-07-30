@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Diagram.DataFormat.BaseData
 {
-    public class Item : IComparable<Item>, IComparer<Item>
+    // IComparable<Item<Entity>>, IComparer<Item<Entity>>
+    public class Item
     {
         protected Guid identity;
         protected Entity parent;
@@ -19,16 +18,22 @@ namespace Diagram.DataFormat.BaseData
         {
             this.parent = entity;
             this.identity = Guid.NewGuid();
+            this.Initialize();
         }
 
-        public int CompareTo(Item other)
+        public void Initialize()
         {
-            return this.sort - other.sort;
+            // this.sort = this.parent.Items.Count;
         }
 
-        public int Compare(Item x, Item y)
-        {
-            return x.Sort - y.Sort;
-        }
+        //public int CompareTo(Item<Entity> other)
+        //{
+        //    return this.sort - other.sort;
+        //}
+
+        //public int Compare(Item<Entity> x, Item<Entity> y)
+        //{
+        //    return x.Sort - y.Sort;
+        //}
     }
 }

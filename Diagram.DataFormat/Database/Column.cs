@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace Diagram.DataFormat.Database
 {
@@ -23,7 +20,7 @@ namespace Diagram.DataFormat.Database
         #endregion
 
         #region 属性
-        
+
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
@@ -73,6 +70,63 @@ namespace Diagram.DataFormat.Database
 
         public Column(Table table)
             : base(table) { }
+
+        #endregion
+
+        #region 方法
+
+        #region override
+
+        public override string ToString()
+        {
+            return (this.isPrimaryKey ? "PK " : "   ") + Column.CreateColumnSQLText(this);
+        }
+
+        #endregion
+
+        #region sql
+
+        public string CreateColumnSQLText()
+        {
+            return Column.CreateColumnSQLText(this);
+        }
+
+        public static string CreateColumnSQLText(Column column)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(column.PhysicsName); // 列名
+            sb.Append(" "); // 空格
+            sb.Append(column.DataType); // 数据类型
+            if (column.Size >= 0)
+            {
+                sb.Append("(");
+                sb.Append(column.Size); // 长度
+                if (column.Decimal >= 0)
+                {
+                    sb.Append(",");
+                    sb.Append(column.Decimal);
+                }
+                sb.Append(")");
+            }
+            // 默认值
+            if (string.IsNullOrEmpty(column.DefaultValue))
+            {
+                // 准许空
+                if (column.AllowNulls)
+                    sb.Append(" NULL ");
+                else
+                    sb.Append(" NOT NULL ");
+            }
+            else
+            {
+                sb.Append(" DEFAULT ");
+                sb.Append(column.DefaultValue);
+                sb.Append(" ");
+            }
+            return sb.ToString();
+        }
+
+        #endregion
 
         #endregion
     }

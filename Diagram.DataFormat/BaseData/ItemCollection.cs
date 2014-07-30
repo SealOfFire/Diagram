@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Diagram.DataFormat.BaseData
 {
-    public class ItemCollection : IEnumerable, IList<Item>, IListSource
+    public class ItemCollection : IList<Item>, IListSource, IEnumerable
     {
         private Entity parent;
         private List<Item> items = new List<Item>();
