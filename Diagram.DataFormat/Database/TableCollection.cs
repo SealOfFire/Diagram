@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Diagram.DataFormat.Database
 {
-    public class TableCollection : BaseData.EntityCollection<Table>
+    public class TableCollection : BaseData.EntityCollection
     {
         private List<ForeignKey> fkColumns = new List<ForeignKey>();
 
