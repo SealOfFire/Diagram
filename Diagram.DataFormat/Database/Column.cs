@@ -16,6 +16,7 @@ namespace Diagram.DataFormat.Database
         private bool isPrimaryKey = false;
         private bool allowNulls = true;
         private Column fkCoumn;
+        private new Table parent;
 
         #endregion
 
@@ -64,12 +65,20 @@ namespace Diagram.DataFormat.Database
             }
         }
 
+        public new Table Parent
+        {
+            get
+            {
+                return this.parent;
+            }
+        }
+
         #endregion
 
         #region 构造函数
 
         public Column(Table table)
-            : base(table) { }
+            : base(table) { this.parent = table; }
 
         #endregion
 

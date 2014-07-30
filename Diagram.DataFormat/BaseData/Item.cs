@@ -11,7 +11,7 @@ namespace Diagram.DataFormat.BaseData
         protected int sort = 0;
 
         public Guid Identity { get { return this.identity; } set { this.identity = value; } }
-        public Entity Parent { get { return this.parent; } }
+        public virtual Entity Parent { get { return this.parent; } }
         public int Sort { get { return this.sort; } set { this.sort = value; } }
 
         public Item(Entity entity)

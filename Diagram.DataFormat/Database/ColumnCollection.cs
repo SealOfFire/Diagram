@@ -2,7 +2,7 @@
 
 namespace Diagram.DataFormat.Database
 {
-    public class ColumnCollection : ItemCollection
+    public class ColumnCollection : ItemCollection<Column>
     {
         public ColumnCollection(Table table)
             : base(table) { }

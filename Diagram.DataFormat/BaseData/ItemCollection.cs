@@ -5,16 +5,16 @@ using System.ComponentModel;
 
 namespace Diagram.DataFormat.BaseData
 {
-    public class ItemCollection : IList<Item>, IListSource, IEnumerable
+    public class ItemCollection<TItem> : IList<TItem>, IListSource, IEnumerable where TItem : Item
     {
         private Entity parent;
-        private List<Item> items = new List<Item>();
+        private List<TItem> items = new List<TItem>();
 
-        public Item this[Guid identity]
+        public TItem this[Guid identity]
         {
             get
             {
-                foreach (Item item in this.items) if (item.Identity == identity) return item;
+                foreach (TItem item in this.items) if (item.Identity == identity) return item;
                 return null;
             }
         }
@@ -37,12 +37,12 @@ namespace Diagram.DataFormat.BaseData
 
         #region IList
 
-        public int IndexOf(Item item)
+        public int IndexOf(TItem item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Insert(int index, Item item)
+        public void Insert(int index, TItem item)
         {
             throw new System.NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace Diagram.DataFormat.BaseData
             throw new System.NotImplementedException();
         }
 
-        public Item this[int index]
+        public TItem this[int index]
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Diagram.DataFormat.BaseData
             }
         }
 
-        public void Add(Item item)
+        public void Add(TItem item)
         {
             throw new System.NotImplementedException();
         }
@@ -74,12 +74,12 @@ namespace Diagram.DataFormat.BaseData
             throw new System.NotImplementedException();
         }
 
-        public bool Contains(Item item)
+        public bool Contains(TItem item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void CopyTo(Item[] array, int arrayIndex)
+        public void CopyTo(TItem[] array, int arrayIndex)
         {
             throw new System.NotImplementedException();
         }
@@ -94,12 +94,12 @@ namespace Diagram.DataFormat.BaseData
             get { throw new System.NotImplementedException(); }
         }
 
-        public bool Remove(Item item)
+        public bool Remove(TItem item)
         {
             throw new System.NotImplementedException();
         }
 
-        IEnumerator<Item> IEnumerable<Item>.GetEnumerator()
+        IEnumerator<TItem> IEnumerable<TItem>.GetEnumerator()
         {
             throw new System.NotImplementedException();
         }

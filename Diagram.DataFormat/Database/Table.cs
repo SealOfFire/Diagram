@@ -10,6 +10,7 @@ namespace Diagram.DataFormat.Database
         private string physicsName = "table_name";
         private string conceptName = "table_name";
         private string annotation = string.Empty;
+        private ColumnCollection columns;
         private ColumnCollection pkColumns;
 
         #endregion
@@ -19,6 +20,7 @@ namespace Diagram.DataFormat.Database
         public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
+        public ColumnCollection Columns { get { return this.columns; } set { this.columns = value; } }
         public ColumnCollection PrimaryKeyColumns { get { return this.pkColumns; } set { this.pkColumns = value; } }
 
         #endregion
@@ -49,7 +51,7 @@ namespace Diagram.DataFormat.Database
                     sb.Append(",");
                 else
                     sb.Append(" ");
-                sb.AppendLine(table.Items[i].CreateColumnSQLText());
+                sb.AppendLine(table.Columns[i].CreateColumnSQLText());
             }
             // 主键 
             if (table.PrimaryKeyColumns != null && table.PrimaryKeyColumns.Count > 0)
