@@ -104,7 +104,7 @@ namespace Diagram.WindowsFormsApplication.Forms
             Guid.TryParse(this.cmbTableFrom.SelectedValue.ToString(), out toID);
             Guid.TryParse(this.cmbColumnFrom.SelectedValue.ToString(), out colFromID);
             Guid.TryParse(this.cmbColumnTo.SelectedValue.ToString(), out colToID);
-            this.cancvas.CreateForeignKey(this.cancvas.Tables[fromID].Columns[colFromID], this.cancvas.Tables[toID].Columns[colToID]);
+            // this.cancvas.AddForeignKey(this.cancvas.Tables[fromID].Columns[colFromID], this.cancvas.Tables[toID].Columns[colToID]);
             this.Close();
         }
 

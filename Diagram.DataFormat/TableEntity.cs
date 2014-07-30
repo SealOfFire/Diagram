@@ -8,7 +8,7 @@ namespace Diagram.DataFormat
     /// <summary>
     /// 
     /// </summary>
-    public class TableEntity:Entity
+    public class TableEntity
     {
         #region
 

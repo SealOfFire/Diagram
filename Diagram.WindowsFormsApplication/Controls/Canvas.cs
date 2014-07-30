@@ -1,6 +1,7 @@
 ﻿using Diagram.DataFormat;
 using Diagram.WindowsFormsApplication.Forms;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -12,12 +13,16 @@ namespace Diagram.WindowsFormsApplication.Controls
         #region
 
         private DataFormat.TableCollection tables = new DataFormat.TableCollection();
+        private List<EntityChart> entities = new List<EntityChart>();
+        private List<Line> lines = new List<Line>();
 
         #endregion
 
         #region 属性
 
         public DataFormat.TableCollection Tables { get { return this.tables; } }
+        public List<EntityChart> Entity { get { return this.entities; } }
+        public List<Line> Lines { get { return this.lines; } }
 
         #endregion
 
@@ -63,10 +68,10 @@ namespace Diagram.WindowsFormsApplication.Controls
             foreach (XmlNode node in xmlTables)
             {
                 Guid id = Guid.Empty;
-                EntityChart table = EntityChart.LoadUI(this, node, out id);
-                table.Table = tables[id];
-                table.SetForm();
-                this.Controls.Add(table);
+                EntityChart entity = EntityChart.LoadUI(this, node, out id);
+                entity.Table = tables[id];
+                entity.SetForm();
+                this.Controls.Add(entity);
             }
         }
 
@@ -131,33 +136,32 @@ namespace Diagram.WindowsFormsApplication.Controls
         /// <returns></returns>
         public EntityChart AddTable()
         {
-            EntityChart control = new EntityChart(this);
-            this.Controls.Add(control);
-            return control;
+            EntityChart entity = new EntityChart(this);
+            this.entities.Add(entity);
+            this.Controls.Add(entity);
+            return entity;
         }
 
         /// <summary>
         /// 删除表
         /// </summary>
         /// <param name="table"></param>
-        public void removeTable(EntityChart table)
+        public void removeTable(EntityChart entity)
         {
-            this.Controls.Remove(table);
-            this.tables.Remove(table.Table);
-            table.Dispose();
+            this.entities.Remove(entity);
+            this.Controls.Remove(entity);
+            this.tables.Remove(entity.Table);
+            entity.Dispose();
         }
 
-        /// <summary>
-        /// 创建外键
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        public void CreateForeignKey(ColumnEntity from, ColumnEntity to)
+        public void AddForeignKey(ItemChart from, ItemChart to)
         {
             // 添加数据
-            this.tables.CreateForeignKey(from, to);
-            // 添加外键控件
-            this.Controls.Add(new TextBox());
+            this.tables.CreateForeignKey(from.Column, to.Column);
+            //
+            TextBox tb = new TextBox();
+            tb.Location = from.GetLocationInCanvas();
+            this.Controls.Add(tb);
         }
 
         #endregion

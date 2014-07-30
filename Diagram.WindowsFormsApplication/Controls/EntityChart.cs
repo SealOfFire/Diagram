@@ -31,6 +31,12 @@ namespace Diagram.WindowsFormsApplication.Controls
         public void SetForm()
         {
             this.lblTableName.Text = this.table.PhysicsName;
+            // 
+            this.items.Clear();
+            foreach (DataFormat.ColumnEntity column in this.table.Columns)
+            {
+                this.items.Add(new ItemChart(this, column));
+            }
             // 清除其他内容
             this.pnlColumns.Controls.Clear();
             this.pnlColumns.RowCount = this.table.Columns.Count;
