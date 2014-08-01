@@ -7,11 +7,11 @@ namespace Diagram.Windows.Forms.Controls
     {
         private TableEntity data = new TableEntity();
         private Control control;
-        private Canvas parent;
+        private Container parent;
 
         public TableEntity Data { get { return this.data; } }
 
-        public Table(Canvas parent)
+        public Table(Container parent)
         {
             this.parent = parent;
         }

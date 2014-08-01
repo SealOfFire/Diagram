@@ -48,7 +48,7 @@ namespace Diagram.DataFormat.BaseData
             }
         }
 
-        public void Add(Entity item)
+        public  virtual void Add(Entity item)
         {
             throw new System.NotImplementedException();
         }

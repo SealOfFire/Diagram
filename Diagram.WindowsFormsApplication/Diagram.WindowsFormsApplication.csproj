@@ -151,6 +151,10 @@
       <Project>{2f9f0121-921f-4781-a577-f672e976c3ed}</Project>
       <Name>Diagram.DataFormat</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Diagram.Windows.Forms\Diagram.Windows.Forms.csproj">
+      <Project>{fe047f9c-e2c3-49b0-8d76-cc1ef40e7da7}</Project>
+      <Name>Diagram.Windows.Forms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

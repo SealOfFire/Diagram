@@ -7,6 +7,9 @@ namespace Diagram.DataFormat.Database
 {
     public class TableCollection : BaseData.EntityCollection
     {
+        /// <summary>
+        /// 所有的外键列
+        /// </summary>
         private List<ForeignKey> fkColumns = new List<ForeignKey>();
 
         /// <summary>

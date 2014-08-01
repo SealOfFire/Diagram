@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Canvas.cs" />
-    <Compile Include="Controls\Table.cs" />
+    <Compile Include="Controls\Container.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Entity.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Item.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +57,9 @@
       <Project>{2f9f0121-921f-4781-a577-f672e976c3ed}</Project>
       <Name>Diagram.DataFormat</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
