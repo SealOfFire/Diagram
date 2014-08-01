@@ -158,7 +158,7 @@ namespace Diagram.WindowsFormsApplication.Controls
         {
             // 添加数据
             this.tables.CreateForeignKey(from.Column, to.Column);
-            //
+            // 添加控件
             TextBox tb = new TextBox();
             tb.Location = from.GetLocationInCanvas();
             this.Controls.Add(tb);
