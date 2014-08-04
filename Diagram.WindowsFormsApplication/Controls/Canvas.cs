@@ -2,6 +2,7 @@
 using Diagram.WindowsFormsApplication.Forms;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -13,7 +14,7 @@ namespace Diagram.WindowsFormsApplication.Controls
         #region
 
         private DataFormat.TableCollection tables = new DataFormat.TableCollection();
-        private List<EntityChart> entities = new List<EntityChart>();
+        private EntityChartCollection entities = new EntityChartCollection();
         private List<Line> lines = new List<Line>();
 
         #endregion
@@ -21,7 +22,7 @@ namespace Diagram.WindowsFormsApplication.Controls
         #region 属性
 
         public DataFormat.TableCollection Tables { get { return this.tables; } }
-        public List<EntityChart> Entity { get { return this.entities; } }
+        public EntityChartCollection Entities { get { return this.entities; } }
         public List<Line> Lines { get { return this.lines; } }
 
         #endregion
@@ -71,8 +72,19 @@ namespace Diagram.WindowsFormsApplication.Controls
                 EntityChart entity = EntityChart.LoadUI(this, node, out id);
                 entity.Table = tables[id];
                 entity.SetForm();
+                this.entities.Add(entity);
                 this.Controls.Add(entity);
             }
+
+            // 设置外键
+            this.lines = new List<Line>();
+            foreach (ForeignKeyEntity fk in this.tables.ForeignKeyColumn)
+            {
+                ItemChart from = this.Entities[fk.FromColumn.Parent.Identity].Items[fk.FromColumn.Identity];
+                ItemChart to = this.Entities[fk.ToColumn.Parent.Identity].Items[fk.ToColumn.Identity];
+                this.lines.Add(new Line(from, to));
+            }
+            this.Refresh();
         }
 
         /// <summary>
@@ -89,7 +101,11 @@ namespace Diagram.WindowsFormsApplication.Controls
             XmlElement root = doc.CreateElement("root");
             doc.AppendChild(root);
             // 数据保存
-            root.AppendChild(this.tables.Save(doc));
+            XmlElement[] eles = this.tables.Save(doc);
+            foreach (XmlElement ele in eles)
+            {
+                root.AppendChild(ele);
+            }
             // 界面保存
             root.AppendChild(this.SaveUI(doc));
             //保存文件
@@ -157,12 +173,27 @@ namespace Diagram.WindowsFormsApplication.Controls
         public void AddForeignKey(ItemChart from, ItemChart to)
         {
             // 添加数据
-            this.tables.CreateForeignKey(from.Column, to.Column);
-            // 添加控件
-            TextBox tb = new TextBox();
-            tb.Location = from.GetLocationInCanvas();
-            this.Controls.Add(tb);
+            if (this.tables.CreateForeignKey(from.Column, to.Column))
+            {
+                this.lines.Add(new Line(from, to));
+            }
+
+            // 刷新
+            this.Refresh();
         }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            // 根据画面状态划线
+            foreach (Line line in this.lines)
+            {
+                line.CalculatePoint();
+                e.Graphics.DrawLines(Pens.Black, line.Points.ToArray());
+            }
+        }
+
 
         #endregion
 

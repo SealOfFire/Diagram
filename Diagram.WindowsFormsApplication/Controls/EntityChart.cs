@@ -11,20 +11,25 @@ namespace Diagram.WindowsFormsApplication.Controls
     /// </summary>
     public partial class EntityChart : UserControl
     {
+        private Guid identity;
         private Point pt;
         private bool moves = true;
         private ItemChartCollection items;
-        private DataFormat.TableEntity table = new DataFormat.TableEntity();
+        private DataFormat.TableEntity table;
 
         private Canvas parent;
 
-        public DataFormat.TableEntity Table { get { return this.table; } set { this.table = value; } }
+        public Guid Identity { get { return this.identity; } }
+        public DataFormat.TableEntity Table { get { return this.table; } set { this.table = value; this.identity = value.Identity; } }
+        public ItemChartCollection Items { get { return this.items; } }
 
         public EntityChart(Canvas parent, bool autoAdd = true)
         {
             this.InitializeComponent();
             this.parent = parent;
+            this.table = new DataFormat.TableEntity();
             if (autoAdd) this.parent.Tables.Add(this.table);
+            this.identity = this.table.Identity;
             this.items = new ItemChartCollection(this);
         }
 

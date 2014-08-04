@@ -78,9 +78,9 @@ namespace Diagram.WindowsFormsApplication.Forms
             this.cmbTableFrom.ValueMember = "value";
             // this.cmbTableFrom.SelectedIndex = 0;
             //
-            this.cmdTableTo.DataSource = this.soruceTableTo;
-            this.cmdTableTo.DisplayMember = "display";
-            this.cmdTableTo.ValueMember = "value";
+            this.cmbTableTo.DataSource = this.soruceTableTo;
+            this.cmbTableTo.DisplayMember = "display";
+            this.cmbTableTo.ValueMember = "value";
             // this.cmdTableTo.SelectedIndex = 0;
             //
             this.cmbColumnFrom.DataSource = this.soruceColumnFrom;
@@ -101,10 +101,10 @@ namespace Diagram.WindowsFormsApplication.Forms
             // 获取选中的项目
             Guid fromID = Guid.Empty, toID = Guid.Empty, colFromID, colToID;
             Guid.TryParse(this.cmbTableFrom.SelectedValue.ToString(), out fromID);
-            Guid.TryParse(this.cmbTableFrom.SelectedValue.ToString(), out toID);
+            Guid.TryParse(this.cmbTableTo.SelectedValue.ToString(), out toID);
             Guid.TryParse(this.cmbColumnFrom.SelectedValue.ToString(), out colFromID);
             Guid.TryParse(this.cmbColumnTo.SelectedValue.ToString(), out colToID);
-            // this.cancvas.AddForeignKey(this.cancvas.Tables[fromID].Columns[colFromID], this.cancvas.Tables[toID].Columns[colToID]);
+            this.cancvas.AddForeignKey(this.cancvas.Entities[fromID].Items[colFromID], this.cancvas.Entities[toID].Items[colToID]);
             this.Close();
         }
 
@@ -130,7 +130,7 @@ namespace Diagram.WindowsFormsApplication.Forms
                     foreach (DataFormat.ColumnEntity col in table.Columns) this.soruceColumnFrom.Rows.Add(col.Identity, col.PhysicsName);
                 }
 
-                if (cmb.Name == this.cmdTableTo.Name)
+                if (cmb.Name == this.cmbTableTo.Name)
                 {
                     this.soruceColumnTo.Clear();
                     foreach (DataFormat.ColumnEntity col in table.Columns) this.soruceColumnTo.Rows.Add(col.Identity, col.PhysicsName);

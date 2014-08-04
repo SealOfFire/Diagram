@@ -15,6 +15,15 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.parent = entity;
         }
 
+        public ItemChart this[Guid identity]
+        {
+            get
+            {
+                foreach (ItemChart item in this.items) if (item.Identity == identity) return item;
+                return null;
+            }
+        }
+
         #region 实现接口
 
         #region IEnumerable

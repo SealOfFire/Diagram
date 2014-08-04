@@ -12,6 +12,14 @@ namespace Diagram.DataFormat.Database
         /// </summary>
         private List<ForeignKey> fkColumns = new List<ForeignKey>();
 
+        public List<ForeignKey> ForeignKeyColumn
+        {
+            get
+            {
+                return this.fkColumns;
+            }
+        }
+
         /// <summary>
         /// 建立外键
         /// </summary>
@@ -47,11 +55,32 @@ namespace Diagram.DataFormat.Database
         public static string CreateTableSQLText(TableCollection tables)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("-- 创建 表 开始--------------------");
             foreach (Table table in tables)
             {
-                sb.AppendLine("-- 创建表[" + table.PhysicsName + "]开始--------------------");
                 sb.AppendLine(table.CreateTableSQLText());
-                sb.AppendLine("-- 创建表[" + table.PhysicsName + "]结束--------------------");
+                sb.AppendLine();
+            }
+            sb.AppendLine("-- 创建 表 结束--------------------");
+            // 外键
+            sb.AppendLine("-- 创建 外键 开始--------------------");
+            foreach (ForeignKey fk in tables.ForeignKeyColumn)
+            {
+                sb.AppendLine(fk.CreateAddSQL());
+            }
+            sb.AppendLine("-- 创建 外键 结束--------------------");
+            return sb.ToString();
+        }
+
+        public static string DeleteTableSQLText(TableCollection tables)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (TableEntity table in tables)
+            {
+                sb.AppendLine("-- 删除表[" + table.PhysicsName + "]开始--------------------");
+                sb.Append("DELETE FROM ");
+                sb.Append(table.PhysicsName);
+                sb.AppendLine("-- 删除表[" + table.PhysicsName + "]结束--------------------");
                 sb.AppendLine();
             }
             return sb.ToString();

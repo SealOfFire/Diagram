@@ -31,7 +31,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbColumnTo = new System.Windows.Forms.ComboBox();
-            this.cmdTableTo = new System.Windows.Forms.ComboBox();
+            this.cmbTableTo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -73,7 +73,7 @@
             // 
             this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.cmbColumnTo);
-            this.groupBox2.Controls.Add(this.cmdTableTo);
+            this.groupBox2.Controls.Add(this.cmbTableTo);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -98,19 +98,19 @@
             this.cmbColumnTo.ValueMember = "Identity";
             this.cmbColumnTo.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
-            // cmdTableTo
+            // cmbTableTo
             // 
-            this.cmdTableTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cmbTableTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTableTo.DisplayMember = "PhysicsName";
-            this.cmdTableTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmdTableTo.FormattingEnabled = true;
-            this.cmdTableTo.Location = new System.Drawing.Point(29, 20);
-            this.cmdTableTo.Name = "cmdTableTo";
-            this.cmdTableTo.Size = new System.Drawing.Size(137, 20);
-            this.cmdTableTo.TabIndex = 6;
-            this.cmdTableTo.ValueMember = "Identity";
-            this.cmdTableTo.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
+            this.cmbTableTo.DisplayMember = "PhysicsName";
+            this.cmbTableTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTableTo.FormattingEnabled = true;
+            this.cmbTableTo.Location = new System.Drawing.Point(29, 20);
+            this.cmbTableTo.Name = "cmbTableTo";
+            this.cmbTableTo.Size = new System.Drawing.Size(137, 20);
+            this.cmbTableTo.TabIndex = 6;
+            this.cmbTableTo.ValueMember = "Identity";
+            this.cmbTableTo.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -280,7 +280,7 @@
         private System.Windows.Forms.ComboBox cmbTableFrom;
         private System.Windows.Forms.ComboBox cmbColumnFrom;
         private System.Windows.Forms.ComboBox cmbColumnTo;
-        private System.Windows.Forms.ComboBox cmdTableTo;
+        private System.Windows.Forms.ComboBox cmbTableTo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;

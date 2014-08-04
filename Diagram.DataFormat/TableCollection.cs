@@ -67,15 +67,21 @@ namespace Diagram.DataFormat
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        public void CreateForeignKey(ColumnEntity from, ColumnEntity to)
+        public bool CreateForeignKey(ColumnEntity from, ColumnEntity to)
         {
+            // 检查是否是用一个表
+            if (from.Parent.Identity == to.Parent.Identity)
+                return false;
+
             // 检查外键是否已经存在
             foreach (ForeignKeyEntity fk in fkColumn)
                 if (fk.FromColumn.Identity == from.Identity && fk.ToColumn.Identity == to.Identity)
-                    return;
+                    return false;
+
             // 创建外键
             from.ForeignKeyColumn = to;
             this.fkColumn.Add(new ForeignKeyEntity(from, to));
+            return true;
         }
 
         #region sql
@@ -90,11 +96,15 @@ namespace Diagram.DataFormat
             StringBuilder sb = new StringBuilder();
             foreach (TableEntity table in tables)
             {
-                sb.AppendLine("-- 创建表[" + table.PhysicsName + "]开始--------------------");
                 sb.AppendLine(table.CreateTableSQLText());
-                sb.AppendLine("-- 创建表[" + table.PhysicsName + "]结束--------------------");
                 sb.AppendLine();
             }
+            sb.AppendLine("-- 创建 外键 开始--------------------");
+            foreach (ForeignKeyEntity fk in tables.ForeignKeyColumn)
+            {
+                sb.AppendLine(fk.CreateAddSQL());
+            }
+            sb.AppendLine("-- 创建 外键 结束--------------------");
             return sb.ToString();
         }
 
@@ -121,19 +131,27 @@ namespace Diagram.DataFormat
 
         #region xml
 
-        public XmlElement Save(XmlDocument document)
+        public XmlElement[] Save(XmlDocument document)
         {
             return TableCollection.Save(this, document);
         }
 
-        public static XmlElement Save(TableCollection tables, XmlDocument document)
+        public static XmlElement[] Save(TableCollection tables, XmlDocument document)
         {
-            XmlElement ele = document.CreateElement("Tables");
+            // 保存表信息
+            XmlElement[] value = new XmlElement[2];
+            value[0] = document.CreateElement("Tables");
             foreach (TableEntity table in tables)
             {
-                ele.AppendChild(table.CreateXmlElement(document));
+                value[0].AppendChild(table.CreateXmlElement(document));
             }
-            return ele;
+            // 保存外键
+            value[1] = document.CreateElement("ForeignKey");
+            foreach (ForeignKeyEntity fk in tables.ForeignKeyColumn)
+            {
+                value[1].AppendChild(fk.CreateXmlElement(document));
+            }
+            return value;
         }
 
         public static TableCollection Load(XmlNode tablesNode)
@@ -144,6 +162,12 @@ namespace Diagram.DataFormat
             foreach (XmlNode node in xmlTables)
             {
                 tables.Add(TableEntity.Load(node));
+            }
+            // 读取外键
+            XmlNode xmlFK = tablesNode.SelectSingleNode("ForeignKey");
+            foreach (XmlNode node in xmlFK)
+            {
+                tables.ForeignKeyColumn.Add(ForeignKeyEntity.Load(node, tables));
             }
             return tables;
         }

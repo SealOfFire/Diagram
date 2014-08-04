@@ -57,6 +57,9 @@
     <Compile Include="Controls\Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EntityChartCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controls\ItemChart.cs">
       <SubType>Component</SubType>
     </Compile>

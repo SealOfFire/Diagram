@@ -1,4 +1,5 @@
 ﻿using Diagram.DataFormat;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,13 +7,16 @@ namespace Diagram.WindowsFormsApplication.Controls
 {
     public class ItemChart : Label
     {
+        private Guid identity;
         private ColumnEntity column;
         private EntityChart parent;
+
+        public Guid Identity { get { return this.identity; } }
 
         public ColumnEntity Column
         {
             get { return this.column; }
-            set { this.column = value; }
+            set { this.column = value; this.identity = value.Identity; }
         }
 
         public override string Text
@@ -37,6 +41,7 @@ namespace Diagram.WindowsFormsApplication.Controls
             this.InitializeComponent();
             this.parent = entity;
             this.column = column;
+            this.identity = column.Identity;
         }
 
         public void InitializeComponent()

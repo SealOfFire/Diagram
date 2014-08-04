@@ -41,6 +41,7 @@ namespace Diagram.DataFormat.Database
         public static string CreateTableSQLText(Table table)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("-- 创建表[" + table.PhysicsName + "]开始--------------------");
             sb.Append("CREATE TABLE ");
             sb.Append(table.PhysicsName); // 表名
             sb.AppendLine("(");
@@ -65,7 +66,8 @@ namespace Diagram.DataFormat.Database
                 }
                 sb.AppendLine(")");
             }
-            sb.Append(")");
+            sb.AppendLine(")");
+            sb.AppendLine("-- 创建表[" + table.PhysicsName + "]结束--------------------");
             return sb.ToString();
         }
 
