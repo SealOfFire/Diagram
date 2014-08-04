@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Diagram.DataFormat.BaseData
 {
-    public class EntityCollection : IEnumerable, IList<Entity>, IListSource
+    [Serializable()]
+    public class EntityCollection<TEntity> : IEnumerable, IList<TEntity>, IListSource where TEntity : Entity
     {
-        private List<Entity> entities = new List<Entity>();
+        private List<TEntity> entities = new List<TEntity>();
 
         #region 实现接口
 
@@ -14,63 +16,63 @@ namespace Diagram.DataFormat.BaseData
 
         public IEnumerator GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return this.entities.GetEnumerator();
         }
 
         #endregion
 
         #region IList
 
-        public int IndexOf(Entity item)
+        public int IndexOf(TEntity item)
         {
-            throw new System.NotImplementedException();
+            return this.entities.IndexOf(item);
         }
 
-        public void Insert(int index, Entity item)
+        public void Insert(int index, TEntity item)
         {
-            throw new System.NotImplementedException();
+            this.entities.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            throw new System.NotImplementedException();
+            this.entities.RemoveAt(index);
         }
 
-        public Entity this[int index]
+        public TEntity this[int index]
         {
             get
             {
-                throw new System.NotImplementedException();
+                return this.entities[index];
             }
             set
             {
-                throw new System.NotImplementedException();
+                this.entities[index] = value;
             }
         }
 
-        public  virtual void Add(Entity item)
+        public virtual void Add(TEntity item)
         {
-            throw new System.NotImplementedException();
+            this.entities.Add(item);
         }
 
         public void Clear()
         {
-            throw new System.NotImplementedException();
+            this.entities.Clear();
         }
 
-        public bool Contains(Entity item)
+        public bool Contains(TEntity item)
         {
-            throw new System.NotImplementedException();
+            return this.entities.Contains(item);
         }
 
-        public void CopyTo(Entity[] array, int arrayIndex)
+        public void CopyTo(TEntity[] array, int arrayIndex)
         {
-            throw new System.NotImplementedException();
+            this.entities.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { throw new System.NotImplementedException(); }
+            get { return this.entities.Count; }
         }
 
         public bool IsReadOnly
@@ -78,12 +80,12 @@ namespace Diagram.DataFormat.BaseData
             get { throw new System.NotImplementedException(); }
         }
 
-        public bool Remove(Entity item)
+        public bool Remove(TEntity item)
         {
-            throw new System.NotImplementedException();
+            return this.entities.Remove(item);
         }
 
-        IEnumerator<Entity> IEnumerable<Entity>.GetEnumerator()
+        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
         {
             throw new System.NotImplementedException();
         }
@@ -99,7 +101,7 @@ namespace Diagram.DataFormat.BaseData
 
         public IList GetList()
         {
-            throw new System.NotImplementedException();
+            return this.entities;
         }
 
         #endregion

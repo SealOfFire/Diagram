@@ -190,6 +190,10 @@ namespace Diagram.WindowsFormsApplication.Controls
             foreach (Line line in this.lines)
             {
                 line.CalculatePoint();
+                if (line.Points[0].X > line.Points[1].X)
+                    line.Points[1] = new Point(line.Points[1].X + 208, line.Points[1].Y);
+                else
+                    line.Points[0] = new Point(line.Points[0].X + 208, line.Points[0].Y);
                 e.Graphics.DrawLines(Pens.Black, line.Points.ToArray());
             }
         }

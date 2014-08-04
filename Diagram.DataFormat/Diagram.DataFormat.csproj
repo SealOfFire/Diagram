@@ -68,7 +68,10 @@
     <Compile Include="TableCollection.cs" />
     <Compile Include="TableEntity.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Database\Oracle\" />
+    <Folder Include="Database\SqlServer\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

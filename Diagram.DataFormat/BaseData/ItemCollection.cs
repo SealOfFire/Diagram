@@ -5,6 +5,7 @@ using System.ComponentModel;
 
 namespace Diagram.DataFormat.BaseData
 {
+    [Serializable()]
     public class ItemCollection<TItem> : IList<TItem>, IListSource, IEnumerable where TItem : Item
     {
         private Entity parent;
@@ -30,7 +31,7 @@ namespace Diagram.DataFormat.BaseData
 
         public IEnumerator GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return this.items.GetEnumerator();
         }
 
         #endregion
@@ -39,54 +40,54 @@ namespace Diagram.DataFormat.BaseData
 
         public int IndexOf(TItem item)
         {
-            throw new System.NotImplementedException();
+            return this.items.IndexOf(item);
         }
 
         public void Insert(int index, TItem item)
         {
-            throw new System.NotImplementedException();
+            this.items.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            throw new System.NotImplementedException();
+            this.items.RemoveAt(index);
         }
 
         public TItem this[int index]
         {
             get
             {
-                throw new System.NotImplementedException();
+                return this.items[index];
             }
             set
             {
-                throw new System.NotImplementedException();
+                this.items[index] = value;
             }
         }
 
         public void Add(TItem item)
         {
-            throw new System.NotImplementedException();
+            this.items.Add(item);
         }
 
         public void Clear()
         {
-            throw new System.NotImplementedException();
+            this.items.Clear();
         }
 
         public bool Contains(TItem item)
         {
-            throw new System.NotImplementedException();
+            return this.items.Contains(item);
         }
 
         public void CopyTo(TItem[] array, int arrayIndex)
         {
-            throw new System.NotImplementedException();
+            this.items.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { throw new System.NotImplementedException(); }
+            get { return this.items.Count; }
         }
 
         public bool IsReadOnly
@@ -96,12 +97,12 @@ namespace Diagram.DataFormat.BaseData
 
         public bool Remove(TItem item)
         {
-            throw new System.NotImplementedException();
+            return this.items.Remove(item);
         }
 
         IEnumerator<TItem> IEnumerable<TItem>.GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return this.items.GetEnumerator();
         }
 
         #endregion
@@ -115,7 +116,7 @@ namespace Diagram.DataFormat.BaseData
 
         public IList GetList()
         {
-            throw new System.NotImplementedException();
+            return this.items;
         }
 
         #endregion

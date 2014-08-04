@@ -7,8 +7,8 @@ namespace Diagram.DataFormat.Database
     {
         #region 字段
 
-        private string physicsName = "table_name";
-        private string conceptName = "table_name";
+        private string physicsName;
+        private string conceptName;
         private string annotation = string.Empty;
         private ColumnCollection columns;
         private ColumnCollection pkColumns;
@@ -17,13 +17,28 @@ namespace Diagram.DataFormat.Database
 
         #region 属性
 
-        public string PhysicsName { get { return this.physicsName; } set { this.physicsName = value; } }
+        public string PhysicsName
+        {
+            get { return this.physicsName; }
+            set
+            {
+                // 检查名称是否重复
+                this.physicsName = value;
+            }
+        }
         public string ConceptName { get { return this.conceptName; } set { this.conceptName = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
         public ColumnCollection Columns { get { return this.columns; } set { this.columns = value; } }
         public ColumnCollection PrimaryKeyColumns { get { return this.pkColumns; } set { this.pkColumns = value; } }
 
         #endregion
+
+        public Table()
+            : base()
+        {
+            this.physicsName = "table_name" + Entity.count;
+            this.conceptName = this.physicsName;
+        }
 
         #region 方法
 

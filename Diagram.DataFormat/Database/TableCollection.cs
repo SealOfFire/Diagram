@@ -5,13 +5,16 @@ using System.Text;
 
 namespace Diagram.DataFormat.Database
 {
-    public class TableCollection : BaseData.EntityCollection
+    public class TableCollection : BaseData.EntityCollection<Table>
     {
         /// <summary>
         /// 所有的外键列
         /// </summary>
         private List<ForeignKey> fkColumns = new List<ForeignKey>();
 
+        /// <summary>
+        /// 所有的外键列
+        /// </summary>
         public List<ForeignKey> ForeignKeyColumn
         {
             get
@@ -46,6 +49,8 @@ namespace Diagram.DataFormat.Database
         {
             return TableCollection.CreateTableSQLText(this);
         }
+
+        #region sql
 
         /// <summary>
         /// 生成建表的sql文
@@ -85,6 +90,8 @@ namespace Diagram.DataFormat.Database
             }
             return sb.ToString();
         }
+
+        #endregion
 
         #endregion
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Diagram.DataFormat.BaseData
 {
-    // IComparable<Item<Entity>>, IComparer<Item<Entity>>
+    [Serializable()]
     public class Item
     {
         protected Guid identity;

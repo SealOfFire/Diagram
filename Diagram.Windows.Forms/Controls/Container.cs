@@ -6,10 +6,10 @@ namespace Diagram.Windows.Forms.Controls
 {
     public class Container : Control
     {
-        private EntityCollection data = new EntityCollection();
+        private EntityCollection<Diagram.DataFormat.BaseData.Entity> data = new EntityCollection<Diagram.DataFormat.BaseData.Entity>();
         private List<Entity> entities = new List<Entity>();
 
-        public EntityCollection Data { get { return this.data; } }
+        public EntityCollection<Diagram.DataFormat.BaseData.Entity> Data { get { return this.data; } }
         public List<Entity> Entities { get { return this.entities; } }
 
         public virtual Entity AddEntity()

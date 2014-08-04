@@ -69,9 +69,12 @@ namespace Diagram.DataFormat
                 else
                 {
                     string[] val = value.Split(',');
-                    if (val.Length >= 0)
+                    if (val.Length > 0)
+                    {
                         int.TryParse(val[0], out this.size);
-                    if (val.Length >= 1)
+                        this.d = -1;
+                    }
+                    if (val.Length > 1)
                         int.TryParse(val[1], out this.d);
                 }
             }
@@ -171,7 +174,7 @@ namespace Diagram.DataFormat
             column.DataType = GetString(node, "DataType"); //node.Attributes["DataType"].Value;
             column.DefaultValue = GetString(node, "DefaultValue"); //node.Attributes["DefaultValue"].Value;
             column.Size = GetInt(node, "Size"); // int.Parse(node.Attributes["Size"].Value);
-            column.Decimal = GetInt(node, "Size"); // int.Parse(node.Attributes["Decimal"].Value);
+            column.Decimal = GetInt(node, "Decimal"); // int.Parse(node.Attributes["Decimal"].Value);
             column.PrimaryKey = GetBoolean(node, "PrimaryKey"); // bool.Parse(node.Attributes["PrimaryKey"].Value);
             column.AllowNulls = GetBoolean(node, "AllowNulls"); // bool.Parse(node.Attributes["AllowNulls"].Value);
             return column;

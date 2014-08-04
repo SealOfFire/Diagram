@@ -17,11 +17,13 @@ namespace Diagram.DataFormat.Database
         public string Name { get { return this.name; } set { this.name = value; } }
         public string Annotation { get { return this.annotation; } set { this.annotation = value; } }
 
+        #region sql
+
         public ForeignKey(Column from, Column to)
         {
             this.fromColumn = from;
             this.toColumn = to;
-            this.name = string.Format("fk_{0}.{1}_{2}.{3}", from.Parent.PhysicsName, from.PhysicsName, to.Parent.PhysicsName, to.PhysicsName);
+            this.name = string.Format("fk_{0}_{1}_{2}_{3}", from.Parent.PhysicsName, from.PhysicsName, to.Parent.PhysicsName, to.PhysicsName);
         }
 
         public string CreateAddSQL()
@@ -60,5 +62,8 @@ namespace Diagram.DataFormat.Database
             sb.AppendLine(string.Format("-- [{0}]删除 结束", foreignKey.fromColumn.Parent.PhysicsName));
             return "ALTER TABLE Orders DROP FOREIGN KEY fk_PerOrders";
         }
+
+        #endregion
+
     }
 }

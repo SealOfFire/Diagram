@@ -57,9 +57,12 @@ namespace Diagram.DataFormat.Database
                 else
                 {
                     string[] val = value.Split(',');
-                    if (val.Length >= 0)
+                    if (val.Length > 0)
+                    {
                         int.TryParse(val[0], out this.size);
-                    if (val.Length >= 1)
+                        this.d = -1;
+                    }
+                    if (val.Length > 1)
                         int.TryParse(val[1], out this.d);
                 }
             }
